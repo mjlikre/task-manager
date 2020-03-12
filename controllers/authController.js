@@ -51,7 +51,8 @@ module.exports = {
 
   },
   signIn: async (req, res) => {
-    res.send({ token: tokenForUser(req.user), user : req.user});
+    console.log(req.user)
+    res.send({ token: tokenForUser(req.user[0].ID), id: req.user[0].ID });
 
   }
 };

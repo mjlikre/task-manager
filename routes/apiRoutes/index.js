@@ -1,6 +1,6 @@
 const router      = require('express').Router();
 const authRoutes  = require('./authRoutes');
-
+const taskRoutes = require("./taskRoutes")
 const passportService = require('./../../services/passport');
 
 const authMiddleware = require('./../../middlewares/authMiddlewares');
@@ -12,5 +12,7 @@ router.route('/test')
   });
 
 router.use('/auth', authRoutes);
+
+router.use("/tasks", taskRoutes); 
 
 module.exports = router;

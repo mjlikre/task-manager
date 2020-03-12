@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "./../components/NavBar";
 import { Form, Button, Modal } from "react-bootstrap";
-import { test } from "./../actions";
+import { test, addTask } from "./../actions";
 
 class Tasks extends Component {
   constructor(props) {
@@ -14,8 +14,12 @@ class Tasks extends Component {
       show: false
     };
   }
-  onSubmit = () => {
-    this.props.test();
+  onSubmit () {
+    const data = {
+        task: "laugh", 
+        description: "laugh out loud"
+    }
+    this.props.addTask(data);
   };
   //   renderTasks = () => {
   //     this.state.task_list.map(item=>{
@@ -51,6 +55,15 @@ class Tasks extends Component {
                 }}
               >
                 Add Tasks
+              </Button>
+
+              <Button
+                variant="primary"
+                onClick={() => {
+                  this.onSubmit()
+                }}
+              >
+                test
               </Button>
             </div>
             <Modal
@@ -95,7 +108,7 @@ class Tasks extends Component {
                     type="submit"
                     onClick={() => {
                       this.onSubmit();
-                      this.handleClose()
+                    //   this.handleClose()
                     }}
                   >Add Task</Button>
               </Modal.Footer>
@@ -111,4 +124,4 @@ function mapStateToProps({ counter }) {
   return { counter: counter.counter };
 }
 
-export default connect(mapStateToProps, { test })(Tasks);
+export default connect(mapStateToProps, { test, addTask })(Tasks);

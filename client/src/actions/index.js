@@ -37,7 +37,7 @@ export const signout = () => {
 
 export const signin = (formProps, callback) => async dispatch => {
   try {
-    const res = await axios.post('/api/auth/login', formProps);
+    const res = await axios.post('/api/auth/signin', formProps);
     localStorage.setItem('token', res.data.token);
     dispatch({ type: AUTH_USER, payload: res.data.token });
     callback();
@@ -47,10 +47,21 @@ export const signin = (formProps, callback) => async dispatch => {
 };
 
 
-export const test = async () => {
+export const test = () => async dispatch =>  {
 
   try{
     const res = await axios.get("/api/test", { headers: { authorization: localStorage.getItem("token")}})
+    console.log(res.data)
+  }catch(e){
+    console.log(e)
+  }
+}
+
+export const addTask = (formProps) => async dispatch => {
+  
+  
+  try{
+    const res = await axios.post("api/tasks/add", formProps, { headers: { authorization: localStorage.getItem("token")}})
     console.log(res.data)
   }catch(e){
     console.log(e)

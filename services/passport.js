@@ -5,6 +5,7 @@ const JwtStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt    = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 const bcrypt        = require('bcryptjs');
+const jwt = require('jwt-simple')
 
 
 const localOptions = { usernameField: 'username' };
@@ -12,32 +13,28 @@ const localOptions = { usernameField: 'username' };
 let userID = ""
 
 const localLogin = new LocalStrategy(localOptions, async (username, password, done) => {
+  console.log("local")
   try {
-    const user = ""; 
-    await User.query(`SELECT * FROM AUTH WHERE name = ?`, [username], (err, result) => {
+    await User.query(`SELECT * FROM AUTH WHERE email = ?`, [username], async (err, user) => {
       if (err) throw err; 
-      else if(result.length === 0){ 
+      else if(user.length === 0){ 
         return done(null, false);
       }
-      user = result
-      console.log(user)
+      const isMatch = await bcrypt.compare(password, user[0].PASS)
+      if (isMatch){
+        console.log("matched", user)
+        return done(null, user);
+      }else{
 
+        return done(null, false);
+      }      
     })
-    if(user.length === 0) {
-      return done(null, false);
-    }
-    let userData =  user.rows[0]
-    console.log(userData)
-    const isMatch = await bcrypt.compare(password, userData.password)
-    if (isMatch){
-      return done(null, user);
-    }else{
-      return done(null, false);
-    }      
   }catch(e){
+
       done(e, false);
   }
 });
+
 
 
 
@@ -51,7 +48,8 @@ const jwtOptions = {
 
 
 const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
-  console.log(payload, "this is payload", payload.sub)
+  // const decoded = jwt.decode(ExtractJwt.fromHeader("authotization"), config.SECRET_KEY)
+  // console.log(decoded)
   try {
     if(payload.sub) {
       // userID = payload.sub.rows[0].id
