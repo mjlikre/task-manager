@@ -1,19 +1,5 @@
-import { INCREMENT_COUNTER, DECREMENT_COUNTER, AUTH_USER, AUTH_ERROR } from "./types";
+import { AUTH_USER, AUTH_ERROR, TASKS, TASKS_ERROR } from "./types";
 import axios from 'axios';
-
-
-export const incrementCounter = () => {
-  return {
-    type: INCREMENT_COUNTER
-  };
-};
-
-export const decrementCounter = () => {
-  return {
-    type: DECREMENT_COUNTER
-  };
-};
-
 
 export const signup = (data, callback) => async dispatch => {
   try {
@@ -57,13 +43,22 @@ export const test = () => async dispatch =>  {
   }
 }
 
-export const addTask = (formProps) => async dispatch => {
-  
-  
+export const addTask = (formProps, callback) => async dispatch => {
   try{
     const res = await axios.post("api/tasks/add", formProps, { headers: { authorization: localStorage.getItem("token")}})
-    console.log(res.data)
+    dispatch({ type: TASKS, payload: res.data.data })
+    callback()
   }catch(e){
-    console.log(e)
+    dispatch({ type: TASKS_ERROR, payload: 'An error occured' });
+  }
+}
+
+export const importTask = (callback) => async dispatch => {
+  try{
+    const res = await axios.get("api/tasks/get", { headers: { authorization: localStorage.getItem("token")}})
+    dispatch({ type: TASKS, payload: res.data.data })
+    callback()
+  }catch(e) {
+    dispatch({ type: TASKS_ERROR, payload: "An error occured" })
   }
 }

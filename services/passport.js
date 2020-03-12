@@ -15,12 +15,12 @@ let userID = ""
 const localLogin = new LocalStrategy(localOptions, async (username, password, done) => {
   console.log("local")
   try {
-    await User.query(`SELECT * FROM AUTH WHERE email = ?`, [username], async (err, user) => {
+    await User.query(`SELECT * FROM auth WHERE email = ?`, [username], async (err, user) => {
       if (err) throw err; 
       else if(user.length === 0){ 
         return done(null, false);
       }
-      const isMatch = await bcrypt.compare(password, user[0].PASS)
+      const isMatch = await bcrypt.compare(password, user[0].pass)
       if (isMatch){
         console.log("matched", user)
         return done(null, user);
@@ -56,7 +56,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, async (payload, done) => {
       
       done(null, payload.sub);
     } else {
-      
+      console.log("failed", payload)
       done(null, false);
     }
   } catch(e) {

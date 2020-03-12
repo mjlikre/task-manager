@@ -11,4 +11,7 @@ router.route('/test')
 router.route("/add")
   .post(authMiddleware.requireAuth, taskController.addTask)
 
+router.route("/get")
+  .get(authMiddleware.requireAuth, taskController.getTask)
+
 module.exports = router;

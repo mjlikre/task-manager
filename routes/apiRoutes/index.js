@@ -8,6 +8,7 @@ const authMiddleware = require('./../../middlewares/authMiddlewares');
 
 router.route('/test')
   .get(authMiddleware.requireAuth, (req, res) => {
+    console.log(req.user, "i got here")
     res.send(req.user);
   });
 

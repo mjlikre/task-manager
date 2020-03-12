@@ -24,7 +24,7 @@ module.exports = {
     try {
       // Check if theres existing user
       
-      await client.Client.query(`SELECT * FROM AUTH WHERE EMAIL = ?`, [username], function (err, result) {
+      await client.Client.query(`SELECT * FROM auth WHERE email = ?`, [username], function (err, result) {
         if (err) throw err;
         else if(result.length > 0){ 
           return res.status(422).json({ error: 'Username is in user' });
@@ -36,8 +36,8 @@ module.exports = {
       
       password = hash;
       const id = uuid.v4()
-      const query = "INSERT INTO AUTH SET ?"
-      await client.Client.query(query, { ID: id, EMAIL: username, PASS: password}, (err, result) => {
+      const query = "INSERT INTO auth SET ?"
+      await client.Client.query(query, { id: id, email: username, pass: password}, (err, result) => {
         if (err) throw err;
         console.log(result)
         res.json({ token: tokenForUser(id)});
@@ -51,8 +51,7 @@ module.exports = {
 
   },
   signIn: async (req, res) => {
-    console.log(req.user)
-    res.send({ token: tokenForUser(req.user[0].ID), id: req.user[0].ID });
+    res.send({ token: tokenForUser(req.user[0].id)});
 
   }
 };
