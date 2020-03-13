@@ -6,6 +6,7 @@ import { signup } from "../actions";
 import { Form, Button } from "react-bootstrap"
 import { Redirect } from 'react-router-dom'
 import NavBar from "./../components/NavBar"
+import monday from "./../images/6.jpg";
 
 class Signup extends Component {
   constructor(props){
@@ -17,10 +18,6 @@ class Signup extends Component {
     }
 
   }
-
-
-
-
 
   onSubmit = () => {
     const data = {
@@ -34,7 +31,7 @@ class Signup extends Component {
 
   renderRedirect = () => {
     if (this.state.redirect || this.props.auth) {
-      return <Redirect to='/tasks' />
+      return <Redirect to='/tasks'/>
     }
   }
 
@@ -42,13 +39,28 @@ class Signup extends Component {
 
     const { handleSubmit } = this.props;
     return (
-      <div className = "container">
+      <div>
         <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Sign Up"]}/>
-        <div className = "row" style = {{marginTop: "80px"}}>
+        <div style = {{position: "relative"}}>
         {this.renderRedirect()}
-        <div className = "col-md-4"></div>
-        <div className = "col-md-4">
-          <div className = "jumbotron">
+        <img
+            src={monday}
+            className="img-fluid"
+            alt=""
+            style={{ height: "100vh", width: "100vw" }}
+          />
+        <div style={{
+              alignContent: "center",
+              width: "100%",
+              position: "absolute",
+              top: "80px",
+              opacity: "0.8"
+            }}>
+              <div
+              className="container"
+              style={{ width: "38%", marginLeft: "31%", marginRight: "31%" }}
+            >
+              <div className = "jumbotron">
             <div style = {{textAlign: "center"}}>
                 <h2>Sign Up</h2>
             </div>
@@ -68,6 +80,8 @@ class Signup extends Component {
               </Button>
             </Form>
           </div>
+            </div>
+          
         </div>
 
         </div>

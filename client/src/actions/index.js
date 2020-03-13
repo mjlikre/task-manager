@@ -36,8 +36,7 @@ export const signin = (formProps, callback) => async dispatch => {
 export const test = () => async dispatch =>  {
 
   try{
-    const res = await axios.get("/api/test", { headers: { authorization: localStorage.getItem("token")}})
-    console.log(res.data)
+    await axios.get("/api/test", { headers: { authorization: localStorage.getItem("token")}})
   }catch(e){
     console.log(e)
   }

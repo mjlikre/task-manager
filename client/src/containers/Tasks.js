@@ -16,7 +16,7 @@ class Tasks extends Component {
       task_list: [],
       show: false,
       showTask: false,
-      index : ""
+      index: "",
     };
   }
   componentDidMount() {
@@ -24,7 +24,8 @@ class Tasks extends Component {
       this.setState({ task_list: this.props.tasks });
     });
   }
-  onSubmit() {
+  
+  onSubmit(callback) {
     const data = {
       task: this.state.task,
       description: this.state.task_description,
@@ -37,11 +38,11 @@ class Tasks extends Component {
     });
     this.setState({ show: false });
   }
-  handleCloseTask(){
-    this.setState({showTask: false})
+  handleCloseTask() {
+    this.setState({ showTask: false });
   }
   renderPopUp() {
-    if (this.state.showTask){
+    if (this.state.showTask) {
       return (
         <Modal
           show={this.state.showTask}
@@ -49,40 +50,53 @@ class Tasks extends Component {
             this.handleCloseTask();
           }}
         >
+          <Modal.Header closeButton>
+            <Modal.Title>{this.state.index + 1}</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
-            <span>{this.state.task_list[this.state.index].task_name} </span>
-            <br />
-            <br />
             <span>
-            {this.state.task_list[this.state.index].task_description}
+              Task Name: {this.state.task_list[this.state.index].task_name}{" "}
             </span>
             <br />
             <span>
-            {this.state.task_list[this.state.index].priority}
+              Task Description:{" "}
+              {this.state.task_list[this.state.index].task_description}
+            </span>
+            <br />
+            <span>
+              Priority: {this.state.task_list[this.state.index].priority}
             </span>
             <br></br>
             <span>
-            {this.state.task_list[this.state.index].completion_status}
+              Status: {this.state.task_list[this.state.index].completion_status}
             </span>
           </Modal.Body>
         </Modal>
       );
-
     }
-    
   }
 
   renderTasks() {
     if (this.state.task_list.length !== 0) {
       return this.state.task_list.map((item, index) => {
         return (
-          <li className="list-group-item" >
-            <div>Name: {item.task_name}</div>
+          <div className="col-md-3">
+            {/* <div>Name: {item.task_name}</div>
             <div>Priority: {item.priority}</div>
-            <div>Status: {item.completion_status}</div>
-            <button className= "primary" onClick = {()=>{this.setState({index: index, showTask: true })}}>Click me</button>
-          </li>
-          
+            <div>Status: {item.completion_status}</div> */}
+            <button
+              className="btn-primary"
+              style={{ borderRadius: "50%", width: "40px", height: "40px" }}
+              onClick={() => {
+                this.setState({ index: index, showTask: true });
+              }}
+            >
+              {index + 1}
+            </button>
+            {/* <h4>Name: {item.task_name} Priority: {item.priority}</h4> */}
+
+            <hr />
+          </div>
         );
       });
     } else {
@@ -116,7 +130,8 @@ class Tasks extends Component {
               alignContent: "center",
               width: "100%",
               position: "absolute",
-              top: "80px"
+              top: "80px",
+              opacity: "0.8"
             }}
           >
             <div
@@ -125,25 +140,22 @@ class Tasks extends Component {
             >
               <div
                 className="jumbotron"
-                style={{ margin: "15px", width: "100%", textAlign: "center" }}
+                style={{ margin: "15px", width: "100%" }}
               >
                 <h2>My Tasks</h2>
-                <div>
-                  <ol className="list-group list-group-flush text-dark">
-                    {this.renderTasks()}
-                  </ol>
-                </div>
+                <div className="row container">{this.renderTasks()}</div>
 
                 <br />
                 <br />
-                <Button
-                  variant="primary"
+                <button
+                  className="btn-primary"
+                  style={{ borderRadius: "15px" }}
                   onClick={() => {
                     this.handleShow();
                   }}
                 >
                   Add Tasks
-                </Button>
+                </button>
               </div>
               <Modal
                 show={this.state.show}
@@ -187,6 +199,7 @@ class Tasks extends Component {
                         }}
                       />
                     </Form.Group>
+                    
 
                     <Form.Group controlId="formBasicText">
                       <Form.Label>Due Date</Form.Label>
@@ -207,13 +220,13 @@ class Tasks extends Component {
                     onClick={() => {
                       this.onSubmit();
                     }}
+                    style={{ borderRadius: "50%" }}
                   >
                     Add Task
                   </Button>
                 </Modal.Footer>
               </Modal>
               {this.renderPopUp()}
-              
             </div>
           </div>
         </div>

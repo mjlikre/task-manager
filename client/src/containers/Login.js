@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { signin } from "../actions";
 import { Redirect } from 'react-router-dom'
 import { Form, Button } from "react-bootstrap"
+import monday from "./../images/4.jpg";
 import NavBar from "./../components/NavBar"
 class Login extends Component {
     constructor(props){
@@ -45,17 +46,29 @@ class Login extends Component {
     }
 
     render(){
-        // if (this.state.email && this.state.password){
-        //     this.undisable()
-        // }
         return (
-            <div className = "container">
+            <div>
                 <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
-                <div className = "row" style = {{marginTop: "80px"}}>
+                <div style = {{position: "relative"}}>
                     {this.renderRedirect()}
-                    <div className = "col-md-4"></div>
-                    <div className = "col-md-4">
-                        <div className = "jumbotron">
+                    <img
+                        src={monday}
+                        className="img-fluid"
+                        alt=""
+                        style={{ height: "100vh", width: "100vw" }}
+                    />
+                    <div style={{
+                        alignContent: "center",
+                        width: "100%",
+                        position: "absolute",
+                        top: "80px",
+                        opacity: "0.8"
+                    }}>
+                         <div
+                            className="container"
+                            style={{ width: "38%", marginLeft: "31%", marginRight: "31%" }}
+                            >
+<div className = "jumbotron">
                             <div style = {{textAlign: "center"}}>
                                 <h2>Sign In</h2>
                             </div>
@@ -76,6 +89,8 @@ class Login extends Component {
                             </Button>
                             </Form>
                         </div>
+                            </div>
+                        
                     </div>
 
                 </div>

@@ -51,6 +51,7 @@ module.exports = {
 
   },
   signIn: async (req, res) => {
+    console.log("i'm seding stuff back")
     res.send({ token: tokenForUser(req.user[0].id)});
 
   }
