@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { signin } from "../actions";
 import { Redirect } from 'react-router-dom'
 import { Form, Button } from "react-bootstrap"
+import NavBar from "./../components/NavBar"
 class Login extends Component {
     constructor(props){
         super(props)
@@ -48,30 +49,38 @@ class Login extends Component {
         //     this.undisable()
         // }
         return (
-            <div className = "row">
-                {this.renderRedirect()}
-                <div className = "col-md-4"></div>
-                <div className = "col-md-4">
-                <div className = "jumbotron">
-                    <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>User Name</Form.Label>
-                        <Form.Control type="username" placeholder="Enter email" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
+            <div className = "container">
+                <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
+                <div className = "row" style = {{marginTop: "80px"}}>
+                    {this.renderRedirect()}
+                    <div className = "col-md-4"></div>
+                    <div className = "col-md-4">
+                        <div className = "jumbotron">
+                            <div style = {{textAlign: "center"}}>
+                                <h2>Sign In</h2>
+                            </div>
+                            
+                            <Form>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>User Name</Form.Label>
+                                <Form.Control type="username" placeholder="Enter email" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
 
-                    </Form.Group>
+                            </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange ={(e) => { this.setState({ password : e.target.value }) }}/>
-                    </Form.Group>
-                    <Button variant="primary" onClick={()=>{this.signIn()}}>
-                        Sign In
-                    </Button>
-                    </Form>
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" onChange ={(e) => { this.setState({ password : e.target.value }) }}/>
+                            </Form.Group>
+                            <Button variant="primary" onClick={()=>{this.signIn()}}>
+                                Sign In
+                            </Button>
+                            </Form>
+                        </div>
+                    </div>
+
                 </div>
-                </div>
-
             </div>
+            
     );
     }
     

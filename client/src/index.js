@@ -11,10 +11,11 @@ import Signup from './containers/Signup';
 import Tasks from "./containers/Tasks"
 import SignOut from "./containers/Signout"
 import SignIn from "./containers/Login"
+import Welcome from "./containers/WelcomePage"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Import components
-import Welcome from './components/Welcome';
+// import Welcome from './components/Welcome';
 import reducers from './reducers';
 
 // configure redux dev tools
@@ -33,7 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App>
-        <Route exact path='/' component={Welcome}/>
+        <Route exact path='/home' component={Welcome}/>
         <Route exact path='/signin' component={SignIn}/>
         <Route exact path='/signout' component={SignOut}/>
         <Route exact path='/signup' component={Signup}/>

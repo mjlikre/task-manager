@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { signup } from "../actions";
 import { Form, Button } from "react-bootstrap"
 import { Redirect } from 'react-router-dom'
+import NavBar from "./../components/NavBar"
 
 class Signup extends Component {
   constructor(props){
@@ -41,16 +42,20 @@ class Signup extends Component {
 
     const { handleSubmit } = this.props;
     return (
-
-      <div className = "row">
+      <div className = "container">
+        <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Sign Up"]}/>
+        <div className = "row" style = {{marginTop: "80px"}}>
         {this.renderRedirect()}
         <div className = "col-md-4"></div>
         <div className = "col-md-4">
           <div className = "jumbotron">
+            <div style = {{textAlign: "center"}}>
+                <h2>Sign Up</h2>
+            </div>
             <Form onSubmit={handleSubmit(this.onSubmit)}>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>User Name</Form.Label>
-                <Form.Control type="username" placeholder="Enter email" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
+                <Form.Label>Usename</Form.Label>
+                <Form.Control type="username" placeholder="Enter username" onChange ={(e) => { this.setState({ username : e.target.value }) }}/>
 
               </Form.Group>
 
@@ -65,7 +70,9 @@ class Signup extends Component {
           </div>
         </div>
 
+        </div>
       </div>
+      
 
 
     )

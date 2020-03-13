@@ -1,5 +1,5 @@
 {
-  "name": "manny-jwt",
+  "name": "michael-jwt-mysql",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "michael",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
