@@ -38,13 +38,13 @@ ReactDOM.render(
     <Router>
       <App>
         <Route exact path='/' component={Welcome}/>
-        <Route exact path='/signin' component={SignIn}/>
-        <Route exact path='/signout' component={SignOut}/>
-        <Route exact path="/go" component = {GroceryOverview}/>
-        <Route exact path="/gl" component = {GroceryList}/>
-        <Route exact path="/gle" component = {GroceryListEdit}/>
-        <Route exact path="/test" component = {TestView} />
-        <Route exact path="/account" component = {Account} />
+        <Route path='/signin' component={SignIn}/>
+        <Route path='/signout' component={SignOut}/>
+        <Route path="/go" component = {GroceryOverview}/>
+        <Route path="/gl" component = {GroceryList}/>
+        <Route path="/gle" component = {GroceryListEdit}/>
+        <Route path="/test" component = {TestView} />
+        <Route path="/account" component = {Account} />
 
       </App>
     </Router>

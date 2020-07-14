@@ -23,7 +23,7 @@ class Welcome extends Component {
         return (
             
             <div >
-                <NavBar navItems = {[{name: "Home", href: "/home"}, {name: "Sign In", href: "/signin"}, "Home"]}/>
+                <NavBar navItems = {[{name: "Home", href: "/"}, {name: "Sign In", href: "/signin"}, "Home"]}/>
                 <div style = {{position: "relative"}}>
                     <img src={monday} className="img-fluid" alt="" style = {{height: "100vh", width: "100vw", position: "fixed"}}/>
                 </div>
