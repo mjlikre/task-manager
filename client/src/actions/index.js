@@ -107,7 +107,7 @@ export const createNewGroceryList = (formProps, callback) => async (
 
 export const getAllGroceryList = (callback) => async (dispatch) => {
   try {
-    const res = await axios.get("api/grocery/getall",  {headers: { authorization: localStorage.getItem("token")}});
+    const res = await axios.post("api/grocery/getall",  {headers: { authorization: localStorage.getItem("token")}});
     dispatch({ type: GET_ALL_GROCERY, payload: res.data.data });
     await callback();
   } catch (e) {
@@ -202,7 +202,7 @@ export const getCostSplit = (id, callback) => async(dispatch) => {
 
 export const GetAllCostSplit = (callback) => async(dispatch) => {
   try{
-    const res = await axios.get("/api/grocery/get_all_split", {headers: {authorization: localStorage.getItem("token")}})
+    const res = await axios.post("/api/grocery/get_all_split", {headers: {authorization: localStorage.getItem("token")}})
     dispatch({type: GET_ALL_COST_SPLIT, payload: res.data.data})
     await callback()
   }catch(e) {

@@ -85,7 +85,7 @@ module.exports = {
               query, 
               (err, result) => {
                   if (err) console.log( err); 
-                  const data = [...result]
+                  let data = result
                   // console.log(data)
                   data.map((element, index) => {
                     if (element.creator_id === req.user) {

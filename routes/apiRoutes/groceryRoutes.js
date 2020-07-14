@@ -7,7 +7,7 @@ router.route('/new_gl')
   .post(authMiddleware.requireAuth, groceryControllers.newGroceryList);
 
 router.route("/getall")
-    .get(authMiddleware.requireAuth, groceryControllers.getAllGroceryList)
+    .post(authMiddleware.requireAuth, groceryControllers.getAllGroceryList)
 
 router.route("/getlist")
     .post(authMiddleware.requireAuth, groceryControllers.getSingleGroceryList)
@@ -32,7 +32,8 @@ router.route("/update_split")
 
 router.route("/get_split")
     .post(groceryControllers.getSplit)
+
 router.route("/get_all_split")
-    .get(authMiddleware.requireAuth, groceryControllers.getAllSplit)
+    .post(authMiddleware.requireAuth, groceryControllers.getAllSplit)
 
 module.exports = router;
