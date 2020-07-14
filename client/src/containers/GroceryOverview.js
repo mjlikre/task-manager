@@ -24,7 +24,7 @@ class GroceryOverview extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token")
     if (!token) {
-      this.props.history.push("/home")
+      this.props.history.push("/")
     }
     else{
       this.props.getAllGroceryList(() => {

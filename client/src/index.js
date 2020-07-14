@@ -37,7 +37,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App>
-        <Route exact path='/home' component={Welcome}/>
+        <Route exact path='/' component={Welcome}/>
         <Route exact path='/signin' component={SignIn}/>
         <Route exact path='/signout' component={SignOut}/>
         <Route exact path="/go" component = {GroceryOverview}/>
