@@ -6,7 +6,7 @@
     "node": "10.15.3",
     "npm": "6.4.1"
   },
-  "proxy": "http://localhost:3001/",
+
   "dependencies": {
     "axios": "^0.19.0",
     "react": "^16.8.6",
