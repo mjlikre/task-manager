@@ -2,9 +2,7 @@ const express   = require('express');
 const morgan    = require('morgan');
 const cors      = require('cors');
 const app = express();
-
-// Database setupx
-
+const path = require("path")
 // Middlewares setup
 app.use(morgan('combined'));
 app.use(express.json());
@@ -15,6 +13,9 @@ app.use(cors());
 // This folder is created during production only
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
 }
 
 // Routes setup
