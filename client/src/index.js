@@ -17,8 +17,6 @@ import GroceryListEdit from "./containers/GroceryListEdit"
 import TestView from "./containers/TestView"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-// Import components
-// import Welcome from './components/Welcome';
 import reducers from './reducers';
 
 // configure redux dev tools
@@ -36,8 +34,8 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App>
-        <Route exact path='/' component={Welcome}/>
+        <Route path="/" component = {App}/>
+        <Route path='/home' component={Welcome}/>
         <Route path='/signin' component={SignIn}/>
         <Route path='/signout' component={SignOut}/>
         <Route path="/go" component = {GroceryOverview}/>
@@ -46,7 +44,6 @@ ReactDOM.render(
         <Route path="/test" component = {TestView} />
         <Route path="/account" component = {Account} />
 
-      </App>
     </Router>
   </Provider>
   , document.getElementById('root'));
