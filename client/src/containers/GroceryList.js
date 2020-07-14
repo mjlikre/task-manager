@@ -104,7 +104,6 @@ class GroceryList extends Component {
                 <div className = "row">
                     <div className = "kjga-display-block col-lg-12">
                     <GeneralList name = "Grocery List" groceryList = {this.state.grocery_list}>
-                        <a href = {"/gle?id="+this.state.id + "&status=edit"}><GeneralButton buttonName = "Edit List" type = "primary"/></a>
                         
                     </GeneralList>
                     </div>
