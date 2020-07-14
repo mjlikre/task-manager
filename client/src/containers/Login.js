@@ -48,7 +48,7 @@ class Login extends Component {
     render(){
         return (
             <div>
-                <NavBar navItems = {[{name: "Home", href: "/"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
+                <NavBar navItems = {[{name: "Home", href: "/home"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
                 <div style = {{position: "relative"}}>
                     {this.renderRedirect()}
                     <img

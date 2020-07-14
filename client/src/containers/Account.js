@@ -25,7 +25,7 @@ class Account extends Component {
     };
     componentDidMount(){
         if (!localStorage.getItem("token")) {
-            this.props.history.push("/")
+            this.props.history.push("/home")
         }else{
 
             this.props.GetAllCostSplit(()=> {
