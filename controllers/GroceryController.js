@@ -120,6 +120,11 @@ module.exports = {
                 JC: req.body.JC,
                 CO: req.body.CO,
                 ER: req.body.ER,
+                CW: req.body.CW,
+                AL: req.body.AL,
+                MW: req.body.MW,
+                CY: req.body.CY,
+                MR: req.body.MR,
                 shareBetween: req.body.shareBetween,
                 ppp: req.body.ppp
               },
@@ -145,7 +150,7 @@ module.exports = {
   },
   updateItem: async (req, res) => {
       try{
-          const query = "UPDATE grocery_item SET TC = ?, MJ = ?, JC = ?, CO = ?, ER = ?, shareBetween = ?, ppp = ? WHERE grocery_list_id = ? and id = ?"
+          const query = "UPDATE grocery_item SET TC = ?, MJ = ?, JC = ?, CO = ?, ER = ?, CW = ?, AL = ?, MW = ?, CY = ?, MR = ?, shareBetween = ?, ppp = ? WHERE grocery_list_id = ? and id = ?"
           console.log(req.body)
           await client.Client.query(
               query, 
@@ -155,6 +160,11 @@ module.exports = {
                 req.body.JC,
                 req.body.CO,
                 req.body.ER,
+                req.body.CW,
+                req.body.AL,
+                req.body.MW,
+                req.body.CY,
+                req.body.MR,
                 req.body.shareBetween,
                 req.body.ppp,
                 req.body.grocery_list_id, 
@@ -215,7 +225,12 @@ module.exports = {
                 MJ: 0,
                 JC: 0,
                 CO: 0,
-                ER: 0
+                ER: 0,
+                CW: 0,
+                MR: 0,
+                AL: 0,
+                MW: 0, 
+                CY: 0
             },
             async (err, result) => {
               if (err) console.log( err); 
@@ -237,10 +252,10 @@ module.exports = {
   },
   updateSplit: async (req, res) => {
     try{
-        const query = "UPDATE cost_split set TC = ?, MJ = ?, JC = ?, CO = ?, ER = ? WHERE grocery_list_id = ?"
+        const query = "UPDATE cost_split set TC = ?, MJ = ?, JC = ?, CO = ?, ER = ?, CW = ?, AL = ?, MW = ?, CY = ?, MR = ? WHERE grocery_list_id = ?"
         await client.Client.query(
             query, 
-            [parseFloat(req.body.TC), parseFloat(req.body.MJ), parseFloat(req.body.JC), parseFloat(req.body.CO), parseFloat(req.body.ER), req.body.id],
+            [parseFloat(req.body.TC), parseFloat(req.body.MJ), parseFloat(req.body.JC), parseFloat(req.body.CO), parseFloat(req.body.ER), parseFloat(req.body.CW), parseFloat(req.body.AL), parseFloat(req.body.MW), parseFloat(req.body.CY), parseFloat(req.body.MR), req.body.id],
             async (err, result) => {
               if (err) console.log( err); 
               client.Client.query(

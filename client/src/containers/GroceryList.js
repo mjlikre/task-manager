@@ -17,7 +17,12 @@ class GroceryList extends Component {
             michael: 0,
             john: 0,
             chibuzor: 0,
-            emilio: 0
+            emilio: 0,
+            chris: 0,
+            andrew: 0,
+            merryle: 0,
+            charles: 0,
+            matthew: 0
         };
     }
     componentDidMount () {
@@ -40,8 +45,12 @@ class GroceryList extends Component {
                             michael: this.props.costSplit[0].MJ,
                             john: this.props.costSplit[0].JC,
                             chibuzor: this.props.costSplit[0].CO,
-                            emilio: this.props.costSplit[0].ER
-
+                            emilio: this.props.costSplit[0].ER,
+                            chris: this.props.getCostSplit[0].CW,
+                            andrew: this.props.getCostSplit[0].AL,
+                            merryle: this.props.getCostSplit[0].MW,
+                            charles: this.props.getCostSplit[0].CY,
+                            matthew: this.props.getCostSplit[0].MR
                         })
                     })
                 })
@@ -65,6 +74,11 @@ class GroceryList extends Component {
                                         <th>John</th>
                                         <th>Chibubu</th>
                                         <th>Emilio</th>
+                                        <th>Chris</th>
+                                        <th>Andrew</th>
+                                        <th>Merryle</th>
+                                        <th>Charles</th>
+                                        <th>Matthew</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,6 +88,11 @@ class GroceryList extends Component {
                                         <th>${this.state.john}</th>
                                         <th>${this.state.chibuzor}</th>
                                         <th>${this.state.emilio}</th>
+                                        <th>${this.state.chris}</th>
+                                        <th>${this.state.andrew}</th>
+                                        <th>${this.state.merryle}</th>
+                                        <th>${this.state.charles}</th>
+                                        <th>${this.state.matthew}</th>
                                     </tr>
 
                                 </tbody>
@@ -86,6 +105,7 @@ class GroceryList extends Component {
                     <div className = "kjga-display-block col-lg-12">
                     <GeneralList name = "Grocery List" groceryList = {this.state.grocery_list}>
                         <a href = {"/gle?id="+this.state.id + "&status=edit"}><GeneralButton buttonName = "Edit List" type = "primary"/></a>
+                        
                     </GeneralList>
                     </div>
                 </div>

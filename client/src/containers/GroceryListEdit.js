@@ -22,7 +22,12 @@ class GroceryListEdit extends Component {
             michael: 0,
             john: 0,
             chibuzor: 0,
-            emilio: 0
+            emilio: 0,
+            chris: 0,
+            andrew: 0,
+            merryle: 0,
+            charles: 0,
+            matthew: 0
         };
         this.newItemHandle = this.newItemHandle.bind(this)
         // this.handleShareBetween = this.handleShareBetween.bind(this)
@@ -49,7 +54,12 @@ class GroceryListEdit extends Component {
                             michael: this.props.costSplit[0].MJ,
                             john: this.props.costSplit[0].JC,
                             chibuzor: this.props.costSplit[0].CO,
-                            emilio: this.props.costSplit[0].ER
+                            emilio: this.props.costSplit[0].ER,
+                            chris: this.props.getCostSplit[0].CW,
+                            andrew: this.props.getCostSplit[0].AL,
+                            merryle: this.props.getCostSplit[0].MW,
+                            charles: this.props.getCostSplit[0].CY,
+                            matthew: this.props.getCostSplit[0].MR
 
                         })
                     })
@@ -70,6 +80,11 @@ class GroceryListEdit extends Component {
             JC: 1,
             CO: 1,
             ER: 1,
+            CW: 0,
+            AL: 0,
+            MW: 0,
+            CY: 0,
+            MR: 0,
             shareBetween: 5,
             ppp: (this.state.newItemPrice/5).toFixed(2)
         }
@@ -152,6 +167,58 @@ class GroceryListEdit extends Component {
                 item_list[index].ER = 0
             }
         }
+        else if (person === "CW") {
+            if (item_list[index].CW === 0) {
+                item_list[index].CW = 1
+                item_list[index].shareBetween ++
+            }
+            else {
+                item_list[index].shareBetween --
+                item_list[index].CW = 0
+            }
+        }
+        else if (person === "AL") {
+            if (item_list[index].AL === 0) {
+                item_list[index].AL = 1
+                item_list[index].shareBetween ++
+            }
+            else {
+                item_list[index].shareBetween --
+                item_list[index].AL = 0
+            }
+        }
+        else if (person === "MW") {
+            if (item_list[index].MW === 0) {
+                item_list[index].MW = 1
+                item_list[index].shareBetween ++
+            }
+            else {
+                item_list[index].shareBetween --
+                item_list[index].MW = 0
+            }
+        }
+        else if (person === "CY") {
+            if (item_list[index].CY === 0) {
+                item_list[index].CY = 1
+                item_list[index].shareBetween ++
+            }
+            else {
+                item_list[index].shareBetween --
+                item_list[index].CY = 0
+            }
+        }
+        else if (person === "MR") {
+            if (item_list[index].MR === 0) {
+                item_list[index].MR = 1
+                item_list[index].shareBetween ++
+            }
+            else {
+                item_list[index].shareBetween --
+                item_list[index].MR = 0
+            }
+        }
+        
+        
         item_list[index].ppp = (parseFloat(item_list[index].price) / parseFloat(item_list[index].shareBetween)).toFixed(2)
 
         this.props.updateItem(item_list[index], () => {
@@ -206,6 +273,21 @@ class GroceryListEdit extends Component {
                             <input defaultChecked = {this.state.item_list[index].ER === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "ER")}}/>
                         </th>
                         <th>
+                            <input defaultChecked = {this.state.item_list[index].CW === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "CW")}}/>
+                        </th>
+                        <th>
+                            <input defaultChecked = {this.state.item_list[index].AL === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "AL")}}/>
+                        </th>
+                        <th>
+                            <input defaultChecked = {this.state.item_list[index].MW === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "MW")}}/>
+                        </th>
+                        <th>
+                            <input defaultChecked = {this.state.item_list[index].CY === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "CY")}}/>
+                        </th>
+                        <th>
+                            <input defaultChecked = {this.state.item_list[index].MR === 1} type = "checkbox" onChange = {event => {this.handleShareBetween(index, "MR")}}/>
+                        </th>
+                        <th>
                             <button className = "cancel-button" onClick = {()=>{this.handleDelete(index)}}>X</button>
                         </th>
                     </tr>
@@ -221,6 +303,11 @@ class GroceryListEdit extends Component {
         let john = 0
         let chibuzor = 0
         let emilio = 0
+        let chris = 0
+        let andrew = 0
+        let merryle = 0
+        let charles = 0
+        let matthew = 0
         for (let i = 0; i < list.length; i ++) {
             if (list[i].TC) {
                 toby += parseFloat(list[i].ppp)
@@ -237,6 +324,21 @@ class GroceryListEdit extends Component {
             if (list[i].ER) {
                 emilio += parseFloat(list[i].ppp)
             }
+            if (list[i].CW) {
+                chris += parseFloat(list[i].ppp)
+            }
+            if (list[i].AL) {
+                andrew += parseFloat(list[i].ppp)
+            }
+            if (list[i].MW) {
+                merryle += parseFloat(list[i].ppp)
+            }
+            if (list[i].CY) {
+                charles += parseFloat(list[i].ppp)
+            }
+            if (list[i].MR) {
+                matthew += parseFloat(list[i].ppp)
+            }
         }
         const data = {
             TC: toby,
@@ -244,6 +346,11 @@ class GroceryListEdit extends Component {
             JC: john,
             CO: chibuzor,
             ER: emilio,
+            CW: chris,
+            AL: andrew,
+            MW: merryle,
+            CY: charles,
+            MR: matthew,
             id: this.state.id
         }
         this.props.updateCostSplist(data, () => {
@@ -252,7 +359,12 @@ class GroceryListEdit extends Component {
                 michael: this.props.costSplit[0].MJ,
                 john: this.props.costSplit[0].JC,
                 chibuzor: this.props.costSplit[0].CO,
-                emilio: this.props.costSplit[0].ER
+                emilio: this.props.costSplit[0].ER,
+                chris: this.props.costSplit[0].CW,
+                andrew: this.props.costSplit[0].AL,
+                merryle: this.props.costSplit[0].MW,
+                charles: this.props.costSplit[0].CY,
+                matthew: this.props.costSplit[0].MR,
             })
         })
         
@@ -272,6 +384,11 @@ class GroceryListEdit extends Component {
                                         <th>John</th>
                                         <th>Chibubu</th>
                                         <th>Emilio</th>
+                                        <th>Chris</th>
+                                        <th>Andrew</th>
+                                        <th>Merryle</th>
+                                        <th>Charles</th>
+                                        <th>Matthew</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -281,6 +398,11 @@ class GroceryListEdit extends Component {
                                         <th>${this.state.john}</th>
                                         <th>${this.state.chibuzor}</th>
                                         <th>${this.state.emilio}</th>
+                                        <th>${this.state.chris}</th>
+                                        <th>${this.state.andrew}</th>
+                                        <th>${this.state.merryle}</th>
+                                        <th>${this.state.charles}</th>
+                                        <th>${this.state.matthew}</th>
                                     </tr>
 
                                 </tbody>
@@ -325,6 +447,11 @@ class GroceryListEdit extends Component {
                                         <th>JC</th>
                                         <th>CO</th>
                                         <th>ER</th>
+                                        <th>CW</th>
+                                        <th>AL</th>
+                                        <th>MW</th>
+                                        <th>CY</th>
+                                        <th>MR</th>
                                     </tr>
                                 </thead>
                                 <tbody>
