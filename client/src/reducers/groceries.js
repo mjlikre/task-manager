@@ -19,7 +19,7 @@ import {
 const INITIAL_STATE = {
   newGrocery: "",
   newGroceryError: "",
-  allGrocery: "",
+  allGrocery: [],
   oneGrocery: [],
   oneGroceryError: "",
   allGroceryError: "",
@@ -27,9 +27,9 @@ const INITIAL_STATE = {
   addNewItemError: "",
   updateItemError: "",
   deleteItemError: "",
-  costSplit: "",
+  costSplit: [],
   costSplitError: "",
-  allCostSplit: "",
+  allCostSplit: [],
   allCostSplitError: ""
 
 };
