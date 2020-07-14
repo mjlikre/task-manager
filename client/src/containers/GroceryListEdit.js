@@ -55,11 +55,11 @@ class GroceryListEdit extends Component {
                             john: this.props.costSplit[0].JC,
                             chibuzor: this.props.costSplit[0].CO,
                             emilio: this.props.costSplit[0].ER,
-                            chris: this.props.getCostSplit[0].CW,
-                            andrew: this.props.getCostSplit[0].AL,
-                            merryle: this.props.getCostSplit[0].MW,
-                            charles: this.props.getCostSplit[0].CY,
-                            matthew: this.props.getCostSplit[0].MR
+                            chris: this.props.costSplit[0].CW,
+                            andrew: this.props.costSplit[0].AL,
+                            merryle: this.props.costSplit[0].MW,
+                            charles: this.props.costSplit[0].CY,
+                            matthew: this.props.costSplit[0].MR
 
                         })
                     })
