@@ -31,7 +31,7 @@ class Login extends Component {
     // }
     renderRedirect = () => {
         if (this.state.redirect || this.props.auth) {  
-          return <Redirect to='/tasks' />
+          return <Redirect to='/go' />
         }
     }
     signIn = () =>{
@@ -48,7 +48,7 @@ class Login extends Component {
     render(){
         return (
             <div>
-                <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
+                <NavBar navItems = {[{name: "Home", href: "/home"}, {name: "Sign In", href: "/signin"}, "Sign In"]}/>
                 <div style = {{position: "relative"}}>
                     {this.renderRedirect()}
                     <img

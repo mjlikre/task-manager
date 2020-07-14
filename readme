@@ -1,0 +1,8 @@
+design doc 
+need to set up users, and their accoutns linking to specific tables with their house data 
+just need to add a house id field to every single list in the overview database, and also a user id
+for each user we need a field that has their house id in them 
+this process needs to be done manually, so that no one may add themselves to a house that they don't belong to 
+5438d24a-80f3-4a7c-9bda-6588c119dda4
+afterall it's what's displaying 
+after that, once it is set up, at

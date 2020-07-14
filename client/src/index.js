@@ -7,11 +7,14 @@ import reduxThunk from 'redux-thunk';
 
 // Import Containers
 import App from './containers/App';
-import Signup from './containers/Signup';
-import Tasks from "./containers/Tasks"
+import Account from './containers/Account';
 import SignOut from "./containers/Signout"
 import SignIn from "./containers/Login"
 import Welcome from "./containers/WelcomePage"
+import GroceryList from "./containers/GroceryList"
+import GroceryOverview from "./containers/GroceryOverview"
+import GroceryListEdit from "./containers/GroceryListEdit"
+import TestView from "./containers/TestView"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Import components
@@ -37,8 +40,12 @@ ReactDOM.render(
         <Route exact path='/home' component={Welcome}/>
         <Route exact path='/signin' component={SignIn}/>
         <Route exact path='/signout' component={SignOut}/>
-        <Route exact path='/signup' component={Signup}/>
-        <Route exact path="/tasks" component = {Tasks}/>
+        <Route exact path="/go" component = {GroceryOverview}/>
+        <Route exact path="/gl" component = {GroceryList}/>
+        <Route exact path="/gle" component = {GroceryListEdit}/>
+        <Route exact path="/test" component = {TestView} />
+        <Route exact path="/account" component = {Account} />
+
       </App>
     </Router>
   </Provider>

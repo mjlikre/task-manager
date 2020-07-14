@@ -1,3 +1,4 @@
 module.exports = {
-    SECRET_KEY: 'gfggkdhdgkhfbjfdkfgbkdbgdfkgbkdfgbkdjfbgkjdfbgjk'
+    SECRET_KEY: 'gfggkdhdgkhfbjfdkfgbkdbgdfkgbkdfgbkdjfbgkjdfbgjk',
+    SIGN_UP_KEY: 'molixuetang' 
 }

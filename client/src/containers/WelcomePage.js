@@ -23,10 +23,9 @@ class Welcome extends Component {
         return (
             
             <div >
-                <NavBar navType = {[{name: "Home", href: "/home"}, {name: "Sign Up", href: "/signup"}, {name: "Sign In", href: "/signin"}, "Home"]}/>
+                <NavBar navItems = {[{name: "Home", href: "/home"}, {name: "Sign In", href: "/signin"}, "Home"]}/>
                 <div style = {{position: "relative"}}>
                     <img src={monday} className="img-fluid" alt="" style = {{height: "100vh", width: "100vw", position: "fixed"}}/>
-                    
                 </div>
                 <Modal
               show={this.state.show}
@@ -41,12 +40,11 @@ class Welcome extends Component {
                     </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <span>Welcome to MTM, Michael's Task Management! </span> 
+                <span>Welcome to KJ house accounting</span> 
                 <br/>
                 <br/>
                 <span>If you wish to continue, please <a href= "/signin">Sign In</a> first.</span>
                 <br/>
-                <span>Or if you don't have an account, just <a href= "/signup">Sign Up</a>! </span>
                 <br></br>
                 <span>If you wish to contribute to this project, contact Michael Jiang!</span>
               </Modal.Body>

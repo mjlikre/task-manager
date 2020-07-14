@@ -4,7 +4,8 @@ const config  = require('../config');
 const uuid = require("uuid")
 const client = require('../models')
 const bcrypt = require('bcryptjs');
-
+const secret = require("./../config")
+require('dotenv').config()
 const tokenForUser = function(id) {
   const timestamp = new Date().getTime();
   // Sub === subject
@@ -17,28 +18,30 @@ const tokenForUser = function(id) {
 
 module.exports = {
   signUp: async (req, res) => {
-    let { password, username } = req.body;
-    if(!username || !password) {
+    if (req.body.secret !== process.env.SIGN_UP_KEY ){
+      return res.status(401).json({error: "secret key is wrong"})
+    }
+    let { password, email } = req.body;
+    if(!email || !password) {
       return res.status(422).json({ error: 'You must provide an username and password' });
     }
     try {
       // Check if theres existing user
       
-      await client.Client.query(`SELECT * FROM auth WHERE email = ?`, [username], function (err, result) {
-        if (err) throw err;
+      await client.Client.query(`SELECT * FROM auth WHERE email = ?`, [email], function (err, result) {
+        if (err) console.log(err);
         else if(result.length > 0){ 
           return res.status(422).json({ error: 'Username is in user' });
         }
       })
       const salt = await bcrypt.genSalt();
-      
       const hash = await bcrypt.hash(password, salt);
       
       password = hash;
       const id = uuid.v4()
       const query = "INSERT INTO auth SET ?"
-      await client.Client.query(query, { id: id, email: username, pass: password}, (err, result) => {
-        if (err) throw err;
+      await client.Client.query(query, { user_id: id, email: email, pass: password, house_id : req.body.houseid, user_name: req.body.username}, (err, result) => {
+        if (err) console.log(err);
         console.log(result)
         res.json({ token: tokenForUser(id)});
       })
@@ -52,7 +55,27 @@ module.exports = {
   },
   signIn: async (req, res) => {
     console.log("i'm seding stuff back")
-    res.send({ token: tokenForUser(req.user[0].id)});
+    res.send({ token: tokenForUser(req.user[0].user_id)});
 
+  },
+  passwordChange: async(req, res) => {
+    try{
+      console.log(req.user[0].user_id)
+      const id = req.user[0].user_id
+      const salt = await bcrypt.genSalt();
+      const hash = await bcrypt.hash(req.body.newpass, salt);
+      const password = hash;
+      const query = "UPDATE auth SET pass = ? WHERE user_id = ?"
+      await client.Client.query(
+        query,
+        [password, id],
+        (err, result) => {
+          if (err) console.log(err)
+          res.json({data: result})
+        }
+      )
+    }catch(e) {
+      console.log(e)
+    }
   }
 };
