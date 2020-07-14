@@ -18,7 +18,6 @@ class Welcome extends Component {
     handleClose () {
         this.setState({show: false})
     }
-    
     render(){
         return (
             
