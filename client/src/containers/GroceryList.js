@@ -22,7 +22,9 @@ class GroceryList extends Component {
             andrew: 0,
             merryle: 0,
             charles: 0,
-            matthew: 0
+            matthew: 0,
+            amount: 0,
+            total: 0,
         };
     }
     componentDidMount () {
@@ -34,6 +36,7 @@ class GroceryList extends Component {
             let search = window.location.search;
             let params = new URLSearchParams(search);
             let id = params.get('id');
+            let total = params.get("total")
             this.setState({
                 id: id
             }, () => {
@@ -50,12 +53,23 @@ class GroceryList extends Component {
                             andrew: this.props.costSplit[0].AL,
                             merryle: this.props.costSplit[0].MW,
                             charles: this.props.costSplit[0].CY,
-                            matthew: this.props.costSplit[0].MR
+                            matthew: this.props.costSplit[0].MR,
+                            total: total
+                        }, ()=> {
+                            let total_amount = 0
+                            this.state.grocery_list.map((item, index) => {
+                                total_amount += item.price
+                            })
+                            this.setState({
+                                amount: total_amount
+                            })
                         })
                     })
                 })
             })
         }
+
+        
         
     }
     render() {
@@ -104,6 +118,13 @@ class GroceryList extends Component {
                 <div className = "row">
                     <div className = "kjga-display-block col-lg-12">
                     <GeneralList name = "Grocery List" groceryList = {this.state.grocery_list}>
+                        <div>
+                        Total: {this.state.total}
+                        </div>
+                        <div>
+                        Paid: {this.state.amount}
+                        </div>
+                        
                         
                     </GeneralList>
                     </div>

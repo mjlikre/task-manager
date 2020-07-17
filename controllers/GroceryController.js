@@ -38,6 +38,23 @@ module.exports = {
         .json({ error: "server error, contact your uncle mike" });
     }
   },
+  getGroceryList: async(req, res) => {
+    try{
+      const query = "SELECT * FROM grocery_overview WHERE shopper_id = ?"
+      await client.Client.query(
+        query, 
+        [req.user],
+        (err, result) => {
+          if (err) console.log(err)
+          res.json({data: result})
+        }
+      )
+
+    }catch(e){ 
+      console.log(e)
+      res.status(500).json({error: e})
+    }
+  },
   getSingleGroceryList: async (req, res) => {
     try{
       const query = "SELECT * FROM grocery_item WHERE grocery_list_id = ?";
@@ -276,13 +293,18 @@ module.exports = {
   },
   getSplit: async (req, res) => {
     try{
-      const query = "SELECT * FROM cost_split WHERE grocery_list_id = ?";
+      const query = "SELECT * FROM cost_split INNER JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE grocery_list_id = ?";
       await client.Client.query(
         query, 
         [req.body.id],
         (err, result) => {
           if (err) console.log( err); 
-          res.json({data: result})
+          if (result[0].creator_id === req.user) {
+            res.json({data: {...result, authenticated: true}})
+          }else{
+            res.json({data: {...result, authenticated: false}})
+          }
+          
         }
       )
     }catch(e) {
@@ -293,7 +315,7 @@ module.exports = {
   getAllSplit: async (req, res) => {
     try{
       const query1 = "SELECT * FROM auth WHERE user_id = ?"
-      const query = "SELECT * FROM cost_split"
+      
       await client.Client.query(
         query1, 
         [req.user],
@@ -302,37 +324,35 @@ module.exports = {
           else{
             const username = result[0].user_name
             const email = result[0].email
-            console.log(username, "un")
+            let query = ""
+            if (username === "TC") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.TC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "MJ") { 
+              query = "SELECT cost_split.grocery_list_id, cost_split.MJ, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "CO") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.CO, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "ER") { 
+              query = "SELECT cost_split.grocery_list_id, cost_split.ER, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "JC") { 
+              query = "SELECT cost_split.grocery_list_id, cost_split.JC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "CW") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.CW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "CY") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.CY, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "MW") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.MW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "AL") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.AL, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }else if (username === "MR") {
+              query = "SELECT cost_split.grocery_list_id, cost_split.MR, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+            }
             await client.Client.query(
               query, 
+              [username],
               (err, result2) => {
                 if (err) console.log(err, "something went wrong")
-                console.log(result2, "result2")
-                let total = 0
-                result2.map((item, index)=> {
-                  if (username === "TC") {
-                    total = total + item.TC
-                  }else if (username === "MJ") { 
-                    total = total + item.MJ
-                  }else if (username === "CO") {
-                    total = total + item.CO
-                  }else if (username === "ER") { 
-                    total = total + item.ER
-                  }else if (username === "JC") { 
-                    total = total + item.JC
-                  }else if (username === "CW") {
-                    total = total + item.CW
-                  }else if (username === "CY") {
-                    total = total + item.CY
-                  }else if (username === "MW") {
-                    total = total + item.MW
-                  }else if (username === "AL") {
-                    total = total + item.AL
-                  }else if (username === "MR") {
-                    total = total + item.MR
-                  }
-                })
-                res.json({data: {total: total, user: username, email: email}})
+
+                res.json({data: {user: username, email: email, results: result2}})
               }
             )
 

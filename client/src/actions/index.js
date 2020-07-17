@@ -17,7 +17,9 @@ import {
   COST_SPLIT_ERROR,
   COST_SPLIT,
   GET_ALL_COST_SPLIT,
-  GET_ALL_COST_SPLIT_ERROR
+  GET_ALL_COST_SPLIT_ERROR,
+  GET_ONE_GROCERY_OVERVIEW, 
+  GET_ONE_GROCERY_OVERVIEW_ERROR
 } from "./types";
 import axios from "axios";
 
@@ -126,6 +128,18 @@ export const getSingleGroceryList = (data, callback) => async (dispatch) => {
   }
 };
 
+export const getGroceryList = (data, callback) => async (dispatch) => {
+  try{
+    const res = await axios.post("api/grocery/get_list", data, {headers: { authorization: localStorage.getItem("token")}})
+    dispatch({type: GET_ONE_GROCERY_OVERVIEW, payload: res.data.data})
+    await callback()
+    
+  }catch(e){
+    console.log(e)
+    dispatch({type: GET_ONE_GROCERY_OVERVIEW_ERROR, payload: "error" })
+  }
+}
+
 export const deleteGroceryList = (id, callback) => async (dispatch) => {
   try {
     const res = await axios.post("api/grocery/delete_list", id);
@@ -168,9 +182,9 @@ export const deleteItem = (formProps, callback) => async (dispatch) => {
   }
 }
 
-export const createCostSplit = (id, callback) => async (dispatch) => {
+export const createCostSplit = (data, callback) => async (dispatch) => {
   try{
-    const res = await axios.post("api/grocery/new_split", {id : id})
+    const res = await axios.post("api/grocery/new_split", data)
     dispatch({ type: COST_SPLIT, payload: res.data.data})
     await callback()
   }catch(e) {
@@ -192,7 +206,7 @@ export const updateCostSplist = (formProps, callback) => async (dispatch) => {
 
 export const getCostSplit = (id, callback) => async(dispatch) => {
   try{
-    const res = await axios.post("/api/grocery/get_split", {id: id})
+    const res = await axios.post("/api/grocery/get_split", {id: id}, {headers: { authorization: localStorage.getItem("token")}})
     dispatch({ type: COST_SPLIT, payload: res.data.data})
     await callback()
   }catch(e) {

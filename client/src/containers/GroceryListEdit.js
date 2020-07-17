@@ -27,10 +27,10 @@ class GroceryListEdit extends Component {
             andrew: 0,
             merryle: 0,
             charles: 0,
-            matthew: 0
+            matthew: 0,
+            authenticated: false
         };
         this.newItemHandle = this.newItemHandle.bind(this)
-        // this.handleShareBetween = this.handleShareBetween.bind(this)
       }
     componentDidMount () {
         const token = localStorage.getItem("token")
@@ -59,7 +59,8 @@ class GroceryListEdit extends Component {
                             andrew: this.props.costSplit[0].AL,
                             merryle: this.props.costSplit[0].MW,
                             charles: this.props.costSplit[0].CY,
-                            matthew: this.props.costSplit[0].MR
+                            matthew: this.props.costSplit[0].MR,
+                            authenticated: this.props.costSplit.authenticated
 
                         })
                     })
@@ -69,7 +70,6 @@ class GroceryListEdit extends Component {
         
     }
     newItemHandle () {
-        // let items = [...this.state.item_list]
         const item = {
             id: this.state.id,
             index: uuid(),
@@ -370,108 +370,127 @@ class GroceryListEdit extends Component {
         
     }
     render() {
-        return (
-            <div class = "container">
-                <Navbar navType = "grocery"/>
-                <div className = "row">
-                    <div className = "kjga-display-block col-lg-12">
-                        <GeneralTemplate name = "Split">
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>Toby</th>
-                                        <th>Michael</th>
-                                        <th>John</th>
-                                        <th>Chibubu</th>
-                                        <th>Emilio</th>
-                                        <th>Chris</th>
-                                        <th>Andrew</th>
-                                        <th>Merryle</th>
-                                        <th>Charles</th>
-                                        <th>Matthew</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>${this.state.toby}</th>
-                                        <th>${this.state.michael}</th>
-                                        <th>${this.state.john}</th>
-                                        <th>${this.state.chibuzor}</th>
-                                        <th>${this.state.emilio}</th>
-                                        <th>${this.state.chris}</th>
-                                        <th>${this.state.andrew}</th>
-                                        <th>${this.state.merryle}</th>
-                                        <th>${this.state.charles}</th>
-                                        <th>${this.state.matthew}</th>
-                                    </tr>
-
-                                </tbody>
-                            </Table>
-                        </GeneralTemplate>
-                    
+        if (this.state.authenticated){
+            return (
+                <div class = "container">
+                    <Navbar navType = "grocery"/>
+                    <div className = "row">
+                        <div className = "kjga-display-block col-lg-12">
+                            <GeneralTemplate name = "Split">
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>Toby</th>
+                                            <th>Michael</th>
+                                            <th>John</th>
+                                            <th>Chibubu</th>
+                                            <th>Emilio</th>
+                                            <th>Chris</th>
+                                            <th>Andrew</th>
+                                            <th>Merryle</th>
+                                            <th>Charles</th>
+                                            <th>Matthew</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>${this.state.toby}</th>
+                                            <th>${this.state.michael}</th>
+                                            <th>${this.state.john}</th>
+                                            <th>${this.state.chibuzor}</th>
+                                            <th>${this.state.emilio}</th>
+                                            <th>${this.state.chris}</th>
+                                            <th>${this.state.andrew}</th>
+                                            <th>${this.state.merryle}</th>
+                                            <th>${this.state.charles}</th>
+                                            <th>${this.state.matthew}</th>
+                                        </tr>
+    
+                                    </tbody>
+                                </Table>
+                            </GeneralTemplate>
+                        
+                        </div>
                     </div>
-                </div>
-                <div className = "row">
-                    <div className = "kjga-display-block col-lg-12">
-                        <GeneralTemplate name = "New List">
-                            <div className = "row">
-                                <div className = "col-md-3">
-                                    <label className = "col-md-12">Item Name</label>
-                                    <input className = "col-md-12 kjga-input-box"type = "text" onChange = {event => {this.handleItemNameInput(event.target.value)}} value = {this.state.newItem}/> 
-                                </div>
-                                <div className = "col-md-3">
-                                    <label className = "col-md-12">Item Price</label>
-                                    <input className = "col-md-12 kjga-input-box" type = "number" value = {this.state.newItemPrice} onChange = {event => {this.handleItemPriceInput(event.target.value)}}/>
-                                </div>
-                                <div className = "col-md-3">
-                                    <div className = "col-md-12"><br></br> </div>
-                                    <div className = "col-md-12">
-                                        <GeneralButton type = "primary" buttonName ="ADD" handleClick ={this.newItemHandle}/>
+                    <div className = "row">
+                        <div className = "kjga-display-block col-lg-12">
+                            <GeneralTemplate name = "New List">
+                                <div className = "row">
+                                    <div className = "col-md-3">
+                                        <label className = "col-md-12">Item Name</label>
+                                        <input className = "col-md-12 kjga-input-box"type = "text" onChange = {event => {this.handleItemNameInput(event.target.value)}} value = {this.state.newItem}/> 
                                     </div>
-                                    
+                                    <div className = "col-md-3">
+                                        <label className = "col-md-12">Item Price</label>
+                                        <input className = "col-md-12 kjga-input-box" type = "number" value = {this.state.newItemPrice} onChange = {event => {this.handleItemPriceInput(event.target.value)}}/>
+                                    </div>
+                                    <div className = "col-md-3">
+                                        <div className = "col-md-12"><br></br> </div>
+                                        <div className = "col-md-12">
+                                            <GeneralButton type = "primary" buttonName ="ADD" handleClick ={this.newItemHandle}/>
+                                        </div>
+                                        
+                                    </div>
+    
                                 </div>
-
-                            </div>
-                            
-                            
-                            
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Price/Person</th>
-                                        <th>TC</th>
-                                        <th>MJ</th>
-                                        <th>JC</th>
-                                        <th>CO</th>
-                                        <th>ER</th>
-                                        <th>CW</th>
-                                        <th>AL</th>
-                                        <th>MW</th>
-                                        <th>CY</th>
-                                        <th>MR</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.renderNewItems()}
-                                </tbody>
-                            </Table>
-                            
-                            
-                            
                                 
-
-                            
-                        </GeneralTemplate>
+                                
+                                
+                                <Table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Price/Person</th>
+                                            <th>TC</th>
+                                            <th>MJ</th>
+                                            <th>JC</th>
+                                            <th>CO</th>
+                                            <th>ER</th>
+                                            <th>CW</th>
+                                            <th>AL</th>
+                                            <th>MW</th>
+                                            <th>CY</th>
+                                            <th>MR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderNewItems()}
+                                    </tbody>
+                                </Table>
+                                
+                                
+                                
+                                    
+    
+                                
+                            </GeneralTemplate>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+            )
+        }
+        else{ 
+            return (
+                <div class = "container">
+                    <Navbar navType = "grocery"/>
+                    <div className = "row">
+                        <div className = "kjga-display-block col-lg-12">
+                            <GeneralTemplate name = "User Unauthenticated">
+                                <h1>Sorry, You can't edit this page</h1>
+                            </GeneralTemplate>
+                        
+                        </div>
                     </div>
                 </div>
                 
-                
-            </div>
-            
-        )
+            )
+        }
+        
     }
 
 }

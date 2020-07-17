@@ -65,7 +65,7 @@ class GroceryOverview extends Component {
   }
   renderRedirect = () => {
     if (this.state.redirect && this.state.id) {
-      let url = "/gle?id=" + this.state.id + "&status=new";
+      let url = "/gle?id=" + this.state.id + "&status=new&total=" + this.state.total;
       return <Redirect to={url}/>;
     }
   };

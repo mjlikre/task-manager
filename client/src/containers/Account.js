@@ -3,7 +3,7 @@ import Navbar from "./../components/NavBar/index"
 import { connect } from "react-redux";
 import GeneralTemplate from "./../components/GeneralTable/GeneralTemplate"
 import GeneralButton from "./../components/Button/GeneralButton"
-import { Form, Button, Modal } from "react-bootstrap";
+import { Form, Button, Modal, Table } from "react-bootstrap";
 import {  GetAllCostSplit, changePass, signout } from "./../actions/index"
 
 class Account extends Component {
@@ -78,6 +78,22 @@ class Account extends Component {
         }
         
     }
+    renderPayments() {
+       if (this.state.data !== 0) {
+           return this.state.data.results.map((item, index) => {
+               let item_list = Object.entries(item)
+               return (
+                   <tr>
+                       <th>{item_list[2][1]}</th>
+                       <th>{item_list[3][1]}</th>
+                       <th>{item_list[1][1]}</th>
+                       <th>{item_list[5][1]}</th>
+                   </tr>
+               )
+           })
+
+       }
+    }
     onSubmit() {
         const data = {
             username: this.state.data.email,
@@ -97,15 +113,26 @@ class Account extends Component {
                                 <div className = "col-lg-12" style = {{padding: "20px 0 20px 20px"}}>
                                     <h3>Hi, {this.state.username}</h3>
                                 </div>
-                                <div className = "col-lg-12" style = {{padding: "20px 0 20px 20px"}}>
-                                    <h3>Your Total Balance is: {this.state.data.total}</h3>
+                                <div className = "col-lg-12">
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th>Shop Date</th>
+                                                <th>Total</th>
+                                                <th>You Pay</th>
+                                                <th>Pay To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.renderPayments()}
+                                        </tbody>
+                                    </Table>
                                 </div>
                                 <div className = "col-lg-12">
                                     <GeneralButton type = "primary" buttonName = "Change Password" handleClick = {()=>{this.handleShow()}}/>
                                 </div>
                                 
                             </div>
-                            
                             
                         </GeneralTemplate>
                         

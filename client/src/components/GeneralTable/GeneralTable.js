@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import "./General.css";
 
 class GeneralTable extends Component {
@@ -13,7 +14,6 @@ class GeneralTable extends Component {
       this.setState({
         item_list: this.props.itemList
       })
-      console.log(this.props.itemList)
     }
   }
   renderButton(item) {
@@ -30,9 +30,9 @@ class GeneralTable extends Component {
     else if (item.edit === 1) {
       return (
         <div className = "button-wrapper">
-          <div className = "button"><a href={"/gl?id=" + item.id }>View</a></div>
+          <div className = "button"><a href={"/gl?id=" + item.id + "&total=" + item.total}>View</a></div>
           
-          <div className = "button"><a href={"gle?id="+item.id}>Edit</a></div>
+          <div className = "button"><a href={"gle?id="+item.id + "&total=" + item.total}>Edit</a></div>
         </div>
 
       )

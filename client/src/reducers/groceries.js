@@ -13,7 +13,9 @@ import {
   COST_SPLIT,
   COST_SPLIT_ERROR,
   GET_ALL_COST_SPLIT,
-  GET_ALL_COST_SPLIT_ERROR
+  GET_ALL_COST_SPLIT_ERROR,
+  GET_ONE_GROCERY_OVERVIEW,
+  GET_ONE_GROCERY_OVERVIEW_ERROR
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -30,7 +32,9 @@ const INITIAL_STATE = {
   costSplit: [],
   costSplitError: "",
   allCostSplit: [],
-  allCostSplitError: ""
+  allCostSplitError: "",
+  getOneGroceryOverview: "",
+  getOneGroceryOverviewError: ""
 
 };
 
@@ -66,6 +70,10 @@ export default function (state = INITIAL_STATE, action) {
       return {...state, allCostSplit: action.payload}
     case GET_ALL_COST_SPLIT_ERROR:
       return {...state, allCostSplitError: action.payload}
+    case GET_ONE_GROCERY_OVERVIEW: 
+      return {...state, getOneGroceryOverview: action.payload}
+    case GET_ONE_GROCERY_OVERVIEW_ERROR: 
+      return {...state, getOneGroceryOverviewError: action.paylod}
     default:
       return state;
   }
