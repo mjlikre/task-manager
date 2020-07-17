@@ -1,6 +1,6 @@
 const client = require("../models");
 const uuid = require("uuid");
-const e = require("express");
+require('dotenv').config()
 
 module.exports = {
   newGroceryList: async (req, res) => {
@@ -299,7 +299,7 @@ module.exports = {
         [req.body.id],
         (err, result) => {
           if (err) console.log( err); 
-          if (result[0].creator_id === req.user) {
+          if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
             res.json({data: {...result, authenticated: true}})
           }else{
             res.json({data: {...result, authenticated: false}})
