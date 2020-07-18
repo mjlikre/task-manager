@@ -6,6 +6,8 @@ import GeneranButton from "./../components/Button/GeneralButton";
 import { Form, Button, Modal } from "react-bootstrap";
 import { createNewGroceryList, getAllGroceryList, createCostSplit, test } from "./../actions";
 import { Redirect } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 class GroceryOverview extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,7 @@ class GroceryOverview extends Component {
       redirect: false,
       id: "",
       grocery_list: false,
+      startDate: ""
     };
   }
   componentDidMount() {
@@ -36,8 +39,24 @@ class GroceryOverview extends Component {
 
     
   }
+  handleDateChange = date => { 
+    
+    this.setState ({
+      startDate: date
+    }, ()=> {
+      let timestamp = Date.parse(date)
+      let thedate = new Date(timestamp)
+      let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+      let day = thedate.getDate()
+      let monthNum = thedate.getMonth()
+      let year = thedate.getFullYear()
+      let dateString = month[monthNum] + " " + day + ", " + year
+      this.setState({
+        date: dateString
+      })
 
-
+    })
+  }
   handleClose = () => {
     this.setState({ show: false });
   };
@@ -134,14 +153,13 @@ class GroceryOverview extends Component {
                     </Form.Group>
       
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Date</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="xx/xx/xxxx"
-                        onChange={(e) => {
-                          this.setState({ date: e.target.value });
-                        }}
+                      <Form.Label>Date: </Form.Label>
+                      <div>
+                      <DatePicker
+                        selected={this.state.startDate}
+                        onChange= {this.handleDateChange}
                       />
+                      </div>
                     </Form.Group>
                     <Form.Group controlId="formBasicText">
                       <Form.Label>Pay To</Form.Label>
@@ -153,6 +171,7 @@ class GroceryOverview extends Component {
                         }}
                       />
                     </Form.Group>
+                    
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
