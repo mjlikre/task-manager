@@ -74,7 +74,9 @@ class GroceryOverview extends Component {
     this.props.createNewGroceryList(data, () => {
       this.setState({
         id: this.props.newGrocery[0].id,
-      }, () => { this.props.createCostSplit(this.state.id)});
+      }, () => { 
+        this.props.createCostSplit(this.state.id)
+      });
       
     });
     this.setState({

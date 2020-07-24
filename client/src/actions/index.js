@@ -184,7 +184,8 @@ export const deleteItem = (formProps, callback) => async (dispatch) => {
 
 export const createCostSplit = (data, callback) => async (dispatch) => {
   try{
-    const res = await axios.post("api/grocery/new_split", data)
+    console.log(data)
+    const res = await axios.post("api/grocery/new_split", {id: data})
     dispatch({ type: COST_SPLIT, payload: res.data.data})
     await callback()
   }catch(e) {

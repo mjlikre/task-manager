@@ -26,6 +26,7 @@ module.exports = {
             (err, result) => {
               if (err) console.log( err);
               console.log(result);
+              
               res.json({ data: result });
             }
           );
@@ -232,6 +233,8 @@ module.exports = {
       }
   },
   newSplit: async (req, res) => {
+    console.log(req.body.id)
+    console.log("creating new split")
     try{
         const query = "INSERT INTO cost_split SET ?"
         await client.Client.query(
@@ -293,15 +296,20 @@ module.exports = {
   },
   getSplit: async (req, res) => {
     try{
-      const query = "SELECT * FROM cost_split INNER JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE grocery_list_id = ?";
+      const query = "SELECT * FROM cost_split INNER JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.grocery_list_id = ?";
+      console.log(req.body.id)
       await client.Client.query(
         query, 
         [req.body.id],
         (err, result) => {
-          if (err) console.log( err); 
-          if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
+          if (err) {
+            console.log( err)
+          }
+          else if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
+            console.log(result)
             res.json({data: {...result, authenticated: true}})
           }else{
+            console.log(result)
             res.json({data: {...result, authenticated: false}})
           }
           
