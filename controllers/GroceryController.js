@@ -25,8 +25,6 @@ module.exports = {
             [id],
             (err, result) => {
               if (err) console.log( err);
-              console.log(result);
-              
               res.json({ data: result });
             }
           );
@@ -84,7 +82,6 @@ module.exports = {
                   "SELECT * FROM grocery_overview ",
                   (err, result) => {
                     if (err) console.log( err);
-                    console.log(result);
                     res.json({ data: result });
                   }
                 );
@@ -104,15 +101,12 @@ module.exports = {
               (err, result) => {
                   if (err) console.log( err); 
                   let data = result
-                  // console.log(data)
                   data.map((element, index) => {
                     if (element.creator_id === req.user) {
                       element.edit = 1 
-                      console.log(element.creator_id, index)
                     }
                     else {
                       element.edit = 0
-                      console.log(element.creator_id, index)
                     }
                   })
                   res.json({data: data})
@@ -196,7 +190,6 @@ module.exports = {
                        [req.body.grocery_list_id],
                        (err, result) =>  {
                            if (err) console.log( err)
-                           console.log(result)
                            res.json({data: result})
                        }
                    )
@@ -233,8 +226,6 @@ module.exports = {
       }
   },
   newSplit: async (req, res) => {
-    console.log(req.body.id)
-    console.log("creating new split")
     try{
         const query = "INSERT INTO cost_split SET ?"
         await client.Client.query(
@@ -297,7 +288,6 @@ module.exports = {
   getSplit: async (req, res) => {
     try{
       const query = "SELECT * FROM cost_split INNER JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.grocery_list_id = ?";
-      console.log(req.body.id)
       await client.Client.query(
         query, 
         [req.body.id],
@@ -306,10 +296,8 @@ module.exports = {
             console.log( err)
           }
           else if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
-            console.log(result)
             res.json({data: {...result, authenticated: true}})
           }else{
-            console.log(result)
             res.json({data: {...result, authenticated: false}})
           }
           
