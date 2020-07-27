@@ -37,3 +37,15 @@
 .button-wrapper {
     display: flex;
 }
+.greendot {
+    height: 10px;
+    width: 10px;
+    background-color: green;
+    border-radius: 5px;
+}
+.greydot{
+    height: 10px;
+    width: 10px;
+    background-color: grey;
+    border-radius: 5px;
+}

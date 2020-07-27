@@ -124,6 +124,9 @@ class GroceryList extends Component {
                         <div>
                         Paid: {this.state.amount}
                         </div>
+                        <div>
+                            <strong>If there's a green dot under your name, it means you're paying for it. Grey dot means you're not paying for it.</strong>
+                        </div>
                         
                         
                     </GeneralList>

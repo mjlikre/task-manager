@@ -438,22 +438,22 @@ class GroceryListEdit extends Component {
                                 
                                 <Table>
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Price/Person</th>
-                                            <th>TC</th>
-                                            <th>MJ</th>
-                                            <th>JC</th>
-                                            <th>CO</th>
-                                            <th>ER</th>
-                                            <th>CW</th>
-                                            <th>AL</th>
-                                            <th>MW</th>
-                                            <th>CY</th>
-                                            <th>MR</th>
-                                        </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>/Person</th>
+                                        <th>Toby</th>
+                                        <th>Mike</th>
+                                        <th>John</th>
+                                        <th>Chib</th>
+                                        <th>Emy</th>
+                                        <th>Chris</th>
+                                        <th>Drew</th>
+                                        <th>Merrle</th>
+                                        <th>Charles</th>
+                                        <th>Matt</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                         {this.renderNewItems()}

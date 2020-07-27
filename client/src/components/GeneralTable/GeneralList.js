@@ -15,6 +15,20 @@ class GeneralList extends Component {
       item_list: this.props.groceryList
     })
   }
+  renderGreenDot (item){
+    if (item === 1) {
+      return (
+        <div className = "greendot"> </div>
+      )
+    }
+    else {
+      return (
+        <div className = "greydot"> </div>
+      )
+    }
+
+  }
+
   renderItem() {
     if (this.state.item_list.length !== 0) {
       return this.state.item_list.map((item, index) => {
@@ -24,6 +38,36 @@ class GeneralList extends Component {
                 <th>{item.item}</th>
                 <th>{item.price}</th>
                 <th>{item.ppp}</th>
+                <th>
+                  {this.renderGreenDot(item.TC)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.MJ)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.JC)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.CO)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.ER)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.CW)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.AL)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.MW)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.CY)}
+                </th>
+                <th>
+                  {this.renderGreenDot(item.MR)}
+                </th>
           </tr>
         );
       });
@@ -43,10 +87,20 @@ class GeneralList extends Component {
                 <Table>
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Item Name</th>
-                            <th>Price</th>
-                            <th>Price/Person</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>/Person</th>
+                        <th>Toby</th>
+                        <th>Mike</th>
+                        <th>John</th>
+                        <th>Chib</th>
+                        <th>Emy</th>
+                        <th>Chris</th>
+                        <th>Drew</th>
+                        <th>Merrle</th>
+                        <th>Charles</th>
+                        <th>Matt</th>
                         </tr>
                     </thead>
                     <tbody>
