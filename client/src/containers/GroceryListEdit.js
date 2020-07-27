@@ -414,7 +414,7 @@ class GroceryListEdit extends Component {
                     </div>
                     <div className = "row">
                         <div className = "kjga-display-block col-lg-12">
-                            <GeneralTemplate name = "New List">
+                            <GeneralTemplate name = "Grocery List">
                                 <div className = "row">
                                     <div className = "col-md-3">
                                         <label className = "col-md-12">Item Name</label>

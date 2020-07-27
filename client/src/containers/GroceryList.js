@@ -79,7 +79,7 @@ class GroceryList extends Component {
                     <Navbar navType = "grocery"/>
                     <div className = "row">
                     <div className = "kjga-display-block col-lg-12">
-                        <GeneralTemplate name = "Split">
+                        <GeneralTemplate name = "Grocery Split">
                             <Table>
                                 <thead>
                                     <tr>
