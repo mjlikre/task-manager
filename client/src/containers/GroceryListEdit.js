@@ -81,12 +81,12 @@ class GroceryListEdit extends Component {
             CO: 1,
             ER: 1,
             CW: 0,
-            AL: 0,
+            AL: 1,
             MW: 0,
             CY: 0,
             MR: 0,
-            shareBetween: 5,
-            ppp: (this.state.newItemPrice/5).toFixed(2)
+            shareBetween: 6,
+            ppp: (this.state.newItemPrice/6).toFixed(2)
         }
         // items.push(item)
         this.props.addNewItem(item, ()=>{
@@ -386,7 +386,7 @@ class GroceryListEdit extends Component {
                                             <th>Chibubu</th>
                                             <th>Emilio</th>
                                             <th>Chris</th>
-                                            <th>Andrew</th>
+                                            <th>Philip</th>
                                             <th>Merryle</th>
                                             <th>Charles</th>
                                             <th>Matthew</th>
@@ -449,7 +449,7 @@ class GroceryListEdit extends Component {
                                         <th>Chib</th>
                                         <th>Emy</th>
                                         <th>Chris</th>
-                                        <th>Drew</th>
+                                        <th>Phil</th>
                                         <th>Merrle</th>
                                         <th>Charles</th>
                                         <th>Matt</th>

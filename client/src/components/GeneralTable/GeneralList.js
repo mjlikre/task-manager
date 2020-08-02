@@ -97,7 +97,7 @@ class GeneralList extends Component {
                         <th>Chib</th>
                         <th>Emy</th>
                         <th>Chris</th>
-                        <th>Drew</th>
+                        <th>Phil</th>
                         <th>Merrle</th>
                         <th>Charles</th>
                         <th>Matt</th>

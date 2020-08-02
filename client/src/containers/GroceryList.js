@@ -89,7 +89,7 @@ class GroceryList extends Component {
                                         <th>Chibubu</th>
                                         <th>Emilio</th>
                                         <th>Chris</th>
-                                        <th>Andrew</th>
+                                        <th>Phillip</th>
                                         <th>Merryle</th>
                                         <th>Charles</th>
                                         <th>Matthew</th>
