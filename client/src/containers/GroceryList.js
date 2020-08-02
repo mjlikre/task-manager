@@ -90,9 +90,9 @@ class GroceryList extends Component {
                                         <th>Emilio</th>
                                         <th>Chris</th>
                                         <th>Phillip</th>
-                                        <th>Merryle</th>
-                                        <th>Charles</th>
-                                        <th>Matthew</th>
+                                        <th>Mary</th>
+                                        <th>Joe</th>
+                                        <th>Tony</th>
                                     </tr>
                                 </thead>
                                 <tbody>

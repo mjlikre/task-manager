@@ -62,15 +62,15 @@ class Account extends Component {
                         })
                     }else if (this.state.data.user === "CY") {
                         this.setState({
-                            username: "Charles Yang"
+                            username: "Joe"
                         })
                     }else if (this.state.data.user === "AL") {
                         this.setState({
-                            username: "Andrew Law"
+                            username: "Phillip Nham"
                         })
                     }else if (this.state.data.user === "MR") {
                         this.setState({
-                            username: "Matthew Robberts"
+                            username: "Tony"
                         })
                     }
                 })

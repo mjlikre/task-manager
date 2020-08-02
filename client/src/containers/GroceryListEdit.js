@@ -388,8 +388,8 @@ class GroceryListEdit extends Component {
                                             <th>Chris</th>
                                             <th>Philip</th>
                                             <th>Merryle</th>
-                                            <th>Charles</th>
-                                            <th>Matthew</th>
+                                            <th>Joe</th>
+                                            <th>Tony</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -450,9 +450,9 @@ class GroceryListEdit extends Component {
                                         <th>Emy</th>
                                         <th>Chris</th>
                                         <th>Phil</th>
-                                        <th>Merrle</th>
-                                        <th>Charles</th>
-                                        <th>Matt</th>
+                                        <th>Mary</th>
+                                        <th>Joe</th>
+                                        <th>Tony</th>
                                     </tr>
                                     </thead>
                                     <tbody>
