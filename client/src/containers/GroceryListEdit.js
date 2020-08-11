@@ -84,8 +84,8 @@ class GroceryListEdit extends Component {
             AL: 1,
             MW: 0,
             CY: 0,
-            MR: 0,
-            shareBetween: 6,
+            MR: 1,
+            shareBetween: 7,
             ppp: (this.state.newItemPrice/6).toFixed(2)
         }
         // items.push(item)
