@@ -41,7 +41,9 @@ class GeneralTable extends Component {
   }
   renderItem() {
     if (this.state.item_list.length !== 0) {
-      return this.state.item_list.map((item, index) => {
+      let item_list = this.state.item_list
+
+      return item_list.map((item, index) => {
         return (
           <div className="col-md-4 kjga-main-list-item">
             {/* <a href={"/gl?id=" + item.id + "&status=edit"}> */}

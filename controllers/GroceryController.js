@@ -7,6 +7,7 @@ module.exports = {
     try {
       const query = "INSERT INTO grocery_overview SET ?";
       const id = uuid.v4();
+      const time = Date.now()
       await client.Client.query(
         query,
         {
@@ -16,7 +17,8 @@ module.exports = {
           store: req.body.store,
           shop_date: req.body.date,
           payto: req.body.payto,
-          creator_id: req.user
+          creator_id: req.user,
+          time_created: time
         },
         async (err, result) => {
           if (err) console.log( err);
@@ -96,20 +98,30 @@ module.exports = {
   getAllGroceryList: async (req, res) => {
       try{
           const query = "SELECT * FROM grocery_overview";
+          
           await client.Client.query(
               query, 
-              (err, result) => {
-                  if (err) console.log( err); 
-                  let data = result
-                  data.map((element, index) => {
-                    if (element.creator_id === req.user) {
-                      element.edit = 1 
-                    }
+              async (err, result) => {
+                await client.Client.query(
+                  "SELECT * FROM auth WHERE user_id = ?",
+                  [req.user], 
+                  (error, results) => {
+                    if (error) console.log(error)
                     else {
-                      element.edit = 0
+                      let data = result
+                      data.map((element, index) => {
+                        if (element.creator_id === req.user || element.payto === results[0].user_name) {
+                          element.edit = 1 
+                        }
+                        else {
+                          element.edit = 0
+                        }
+                      })
+                      res.json({data: data})
                     }
-                  })
-                  res.json({data: data})
+                  }
+                )
+                  
               }
           )
       }catch(e) {

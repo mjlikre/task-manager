@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const authMiddleware = require('./../../middlewares/authMiddlewares');
-
+const changesControllers = require("./../../controllers/changesController")
 const groceryControllers = require('./../../controllers/GroceryController');
 
 router.route('/new_gl')
@@ -36,8 +36,12 @@ router.route("/update_split")
 router.route("/get_split")
     .post(authMiddleware.requireAuth, groceryControllers.getSplit)
 
-
 router.route("/get_all_split")
     .post(authMiddleware.requireAuth, groceryControllers.getAllSplit)
 
+// router.route("/changes")
+//     .post(changesControllers.migrate_new_list)
+
+router.route("/gtime")
+    .get(changesControllers.getTime)
 module.exports = router;
