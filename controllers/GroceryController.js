@@ -7,7 +7,6 @@ module.exports = {
     try {
       const query = "INSERT INTO grocery_overview SET ?";
       const id = uuid.v4();
-      const time = Date.now()
       await client.Client.query(
         query,
         {
@@ -18,7 +17,7 @@ module.exports = {
           shop_date: req.body.date,
           payto: req.body.payto,
           creator_id: req.user,
-          time_created: time
+          time_created: Date.now()
         },
         async (err, result) => {
           if (err) console.log( err);
@@ -132,6 +131,8 @@ module.exports = {
   addNewItem: async (req, res) => {
       try{
           const query = "INSERT INTO grocery_item SET ?"
+          const time = Date.now()
+          console.log(time)
           await client.Client.query(
               query, 
               {
@@ -150,7 +151,8 @@ module.exports = {
                 CY: req.body.CY,
                 MR: req.body.MR,
                 shareBetween: req.body.shareBetween,
-                ppp: req.body.ppp
+                ppp: req.body.ppp,
+                time_created: parseInt(time)
               },
               async (err, result) => {
                   if (err) console.log((err))

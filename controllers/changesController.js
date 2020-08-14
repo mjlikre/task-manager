@@ -13,7 +13,7 @@ module.exports = {
                     else {
                         console.log(result);
                         result.map((item, index) => {
-                            module.exports.addToNewList(item)
+                            module.exports.addToNewList(item, index)
                         })
                         res.json({done: "done"})
                     }
@@ -24,20 +24,21 @@ module.exports = {
             return res.status(500).json(e)
         }
     },
-    addToNewList: async(data) => {
+    addToNewList: async(data, index) => {
         try{
             const query = "INSERT INTO grocery_overview SET ?";
             await client.Client.query(
                 query, 
                 {
                     id: data.id,
-                    shopper: data.shopper,
+                    shopper:  data.shopper,
                     total: data.total,
                     store: data.store,
                     shop_date: data.shop_date,
                     payto: data.payto,
-                    creator_id: data.creator_id,
+                    creator_id: data.user_id,
                     time_created: data.time_created
+                    
                 },
                 (err, result) => {
                     if(err) console.log(err);
@@ -48,23 +49,9 @@ module.exports = {
         }
     },
     getTime: async(req, res) => {
-        try{
-            const query = "SELECT * FROM auth WHERE user_id = ?"
-            await client.Client.query(
-                query,
-                ['9304d9ee-aa90-4318-a946-eec795e46c1d'],
-                (err, result) => {
-                    if (err) console.log(err)
-                    else{
-                        console.log(result)
-                        res.json(
-                            {data: result[0].user_name}
-                        )
-                    }
-                }
-            )
-        }catch(e){
-            console.log(e)
-        }
+        let date = Date.now()
+        console.log(date)
+        
+        res.json({date: date})
     }
 }
