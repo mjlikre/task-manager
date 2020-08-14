@@ -305,15 +305,32 @@ module.exports = {
       await client.Client.query(
         query, 
         [req.body.id],
-        (err, result) => {
+        async (err, result) => {
           if (err) {
             console.log( err)
           }
-          else if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
-            res.json({data: {...result, authenticated: true}})
-          }else{
-            res.json({data: {...result, authenticated: false}})
+          else {
+            await client.Client.query(
+              "SELECT * FROM auth WHERE user_id = ?", 
+              [req.user],
+              (error, results) => {
+                if (error) console.log(error)
+                else{
+                  if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID || results[0].user_name === result[0].payto){
+                    res.json({data: {...result, authenticated: true}})
+                    }else{
+                      res.json({data: {...result, authenticated: false}})
+                    
+                  }
+                }
+              }
+            )
           }
+          // else if (result[0].creator_id === req.user || req.user === process.env.ADMIN_ID)  {
+          //   res.json({data: {...result, authenticated: true}})
+          // }else{
+          //   res.json({data: {...result, authenticated: false}})
+          // }
           
         }
       )

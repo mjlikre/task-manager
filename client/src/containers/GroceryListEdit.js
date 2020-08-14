@@ -86,7 +86,7 @@ class GroceryListEdit extends Component {
             CY: 0,
             MR: 1,
             shareBetween: 7,
-            ppp: (this.state.newItemPrice/6).toFixed(2)
+            ppp: (this.state.newItemPrice/7).toFixed(2)
         }
         // items.push(item)
         this.props.addNewItem(item, ()=>{
