@@ -99,8 +99,8 @@ class GeneralList extends Component {
                         <th>Chris</th>
                         <th>Phil</th>
                         <th>Merrle</th>
-                        <th>Charles</th>
-                        <th>Matt</th>
+                        <th>Joe</th>
+                        <th>Tony</th>
                         </tr>
                     </thead>
                     <tbody>
