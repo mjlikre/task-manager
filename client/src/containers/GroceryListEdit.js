@@ -28,7 +28,9 @@ class GroceryListEdit extends Component {
             merryle: 0,
             charles: 0,
             matthew: 0,
-            authenticated: false
+            authenticated: false,
+            amount: 0,
+            paid: 0
         };
         this.newItemHandle = this.newItemHandle.bind(this)
       }
@@ -61,7 +63,21 @@ class GroceryListEdit extends Component {
                             charles: this.props.costSplit[0].CY,
                             matthew: this.props.costSplit[0].MR,
                             authenticated: this.props.costSplit.authenticated
-
+                        }, ()=> {
+                            let total_amount = 0
+                            let total_paid = 0
+                            this.state.item_list.map((item, index)=> {
+                                if (item.price > 0){
+                                    total_amount += item.price
+                                }
+                                else{
+                                    total_paid += (-item.price)
+                                }
+                            })
+                            this.setState({
+                                amount: total_amount,
+                                paid: total_paid
+                            })
                         })
                     })
                 })
@@ -415,6 +431,12 @@ class GroceryListEdit extends Component {
                     <div className = "row">
                         <div className = "kjga-display-block col-lg-12">
                             <GeneralTemplate name = "Grocery List">
+                                <div>
+                                    Total: {this.state.amount} |
+                                </div>
+                                <div>
+                                    Paid: {this.state.paid}
+                                </div>
                                 <div className = "row">
                                     <div className = "col-md-3">
                                         <label className = "col-md-12">Item Name</label>

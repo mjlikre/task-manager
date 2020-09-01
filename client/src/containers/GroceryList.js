@@ -25,6 +25,7 @@ class GroceryList extends Component {
             matthew: 0,
             amount: 0,
             total: 0,
+            paid: 0
         };
     }
     componentDidMount () {
@@ -57,11 +58,18 @@ class GroceryList extends Component {
                             total: total
                         }, ()=> {
                             let total_amount = 0
+                            let total_paid = 0
                             this.state.grocery_list.map((item, index) => {
-                                total_amount += item.price
+                                if (item.price > 0){
+                                    total_amount += item.price
+                                }
+                                else{
+                                    total_paid += (-item.price)
+                                }
                             })
                             this.setState({
-                                amount: total_amount
+                                amount: total_amount,
+                                paid: total_paid
                             })
                         })
                     })
@@ -119,10 +127,10 @@ class GroceryList extends Component {
                     <div className = "kjga-display-block col-lg-12">
                     <GeneralList name = "Grocery List" groceryList = {this.state.grocery_list}>
                         <div>
-                        Total: {this.state.total}
+                        Total: {this.state.amount}
                         </div>
                         <div>
-                        Paid: {this.state.amount}
+                        Paid: {this.state.paid}
                         </div>
                         <div>
                             <strong>If there's a green dot under your name, it means you're paying for it. Grey dot means you're not paying for it.</strong>

@@ -57,7 +57,7 @@ module.exports = {
   },
   getSingleGroceryList: async (req, res) => {
     try{
-      const query = "SELECT * FROM grocery_item WHERE grocery_list_id = ?";
+      const query = "SELECT * FROM grocery_item WHERE grocery_list_id = ? ORDER BY time_created DESC";
       await client.Client.query(
           query, 
           [req.body.id],
@@ -158,7 +158,7 @@ module.exports = {
                   if (err) console.log((err))
                   else{
                       await client.Client.query(
-                          "SELECT * FROM grocery_item WHERE grocery_list_id = ?",
+                          "SELECT * FROM grocery_item WHERE grocery_list_id = ? ORDER BY time_created DESC",
                           [req.body.id],
                           (err, result) => {
                               if (err) console.log( err);
@@ -200,7 +200,7 @@ module.exports = {
                    if (err) console.log( err); 
                    console.log(result)
                    client.Client.query(
-                       "SELECT * FROM grocery_item WHERE grocery_list_id = ?",
+                       "SELECT * FROM grocery_item WHERE grocery_list_id = ? ORDER BY time_created DESC",
                        [req.body.grocery_list_id],
                        (err, result) =>  {
                            if (err) console.log( err)
@@ -224,7 +224,7 @@ module.exports = {
               async (err, result) => {
                 if (err) console.log( err); 
                 client.Client.query(
-                    "SELECT * FROM grocery_item WHERE grocery_list_id = ?",
+                    "SELECT * FROM grocery_item WHERE grocery_list_id = ? ORDER BY time_created DESC",
                     [req.body.id],
                     (err, result) =>  {
                         if (err) console.log( err)
@@ -392,5 +392,53 @@ module.exports = {
       console.log(e)
       res.status(500).json({error: "Server Error, contact Uncle mike"})
     }
-  } 
+  }, 
+  sortList: (array, order)=> {
+    const partition = (array, start, end, order) => {
+      let pivot = array[end]
+      let left = start
+      let right = end-1
+      
+        while (left <= right){
+          if (order === 0){
+            while (left <= end && array[left].time_created < pivot.time_created ) {
+              left ++
+            }
+            while (right >= start && array[right].time_created >= pivot.time_created ) {
+                right --
+            }
+          }else if(order === 1){
+            while (left <= end && array[left].time_created > pivot.time_created ) {
+              left ++
+            }
+            while (right >= start && array[right].time_created <= pivot.time_created ) {
+                right --
+            }
+          }
+          
+          let tempSmall = array[right]
+          let tempBig = array[left]
+          if (left < right) {
+              array[right] = tempBig
+              array[left] = tempSmall
+          }
+          else {
+              array[end] = tempBig
+              array[left] = pivot
+          }
+        }
+      return left 
+    }
+
+    const quickSub = (array, start, end, order) => {
+        if (start === end || start > end) { 
+            return
+        }
+        let pivot = partition(array, start, end, order)
+        quickSub(array, start, pivot-1, order)
+        quickSub(array, pivot +1, end, order)
+    }
+    quickSub(array, 0, array.length -1, order)
+    return array
+  },
 };
