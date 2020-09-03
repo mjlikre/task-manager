@@ -19,6 +19,11 @@ class GeneralButton extends Component {
           <button className = "cancel-button" onClick = {this.props.handleClick()}>{this.props.buttonName}</button>
         )
       }
+      else if(this.props.type === "inactive") {
+        return (
+          <button className = "secondary-button" disabled>{this.props.buttonName}</button>
+        )
+      }
   }
 };
 

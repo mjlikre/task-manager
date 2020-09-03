@@ -31,6 +31,17 @@
     line-height: 0.75;
 }
 
+.inactive-button {
+    color: #333;
+    background-color: #e0e0e0;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.75;
+}
+
 .kjga-display-block {
     display: block;
     top: 80px

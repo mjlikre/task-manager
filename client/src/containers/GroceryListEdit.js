@@ -385,6 +385,91 @@ class GroceryListEdit extends Component {
         })
         
     }
+
+    getPersonShare(person, input) {
+        if (person === input) {
+            return 1
+        }
+        else{
+            return 0
+        }
+    }
+
+    getName(person) {
+        if (person === "TC") {
+            return "Toby Payment"
+        }
+        else if(person === "MJ") {
+            return "Michael Payment"
+        }
+        else if(person === "JC") {
+            return "John Payment"
+        }
+        else if(person === "CO") {
+            return "Chibuzor Payment"
+        }
+        else if(person === "CW") {
+            return "Chris Payment"
+        }
+        else if(person === "AL") {
+            return "Phillip Payment"
+        }else if(person === "MW") {
+            return "Merryle Payment"
+        }else if(person === "CY") {
+            return "Joe Payment"
+        }else if(person === "MR") {
+            return "Tony Payment"
+        }else if(person === "ER") {
+            return "Emilio Payment"
+        }
+    }
+
+    handlePaidButton(amount, person) {
+        const item = {
+            id: this.state.id,
+            index: uuid(),
+            name: this.getName(person),
+            price: amount,
+            TC: this.getPersonShare("TC", person),
+            MJ: this.getPersonShare("MJ", person),
+            JC: this.getPersonShare("JC", person),
+            CO: this.getPersonShare("CO", person),
+            ER: this.getPersonShare("ER", person),
+            CW: this.getPersonShare("CW", person),
+            AL: this.getPersonShare("AL", person),
+            MW: this.getPersonShare("MW", person),
+            CY: this.getPersonShare("CY", person),
+            MR: this.getPersonShare("MR", person),
+            shareBetween: 1,
+            ppp: amount
+        }
+        // items.push(item)
+        this.props.addNewItem(item, ()=>{
+            this.setState({
+                item_list: this.props.grocery,
+                newItem: "", 
+                newItemPrice: 0,
+                item_index: this.state.item_index + 1
+            },()=>{
+                this.handleCostAllocation()
+            })
+        })
+
+    }
+
+    renderPaidButton(amount, person){
+        if (amount > 0) {
+            return (
+                <GeneralButton type = "primary" buttonName ="Pay" handleClick = {()=> {this.handlePaidButton(-amount, person)}}/>
+            )
+        }else {
+            return (
+                <GeneralButton type = "inactive" buttonName = "Paid"/>
+            )
+        }
+
+    }
+
     render() {
         if (this.state.authenticated){
             return (
@@ -421,7 +506,18 @@ class GroceryListEdit extends Component {
                                             <th>${this.state.charles}</th>
                                             <th>${this.state.matthew}</th>
                                         </tr>
-    
+                                        <tr>
+                                            <th>{this.renderPaidButton(this.state.toby, "TC")}</th>
+                                            <th>{this.renderPaidButton(this.state.michael, "MJ")}</th>
+                                            <th>{this.renderPaidButton(this.state.john, "JC")}</th>
+                                            <th>{this.renderPaidButton(this.state.chibuzor, "CO")}</th>
+                                            <th>{this.renderPaidButton(this.state.emilio, "ER")}</th>
+                                            <th>{this.renderPaidButton(this.state.chris, "CW")}</th>
+                                            <th>{this.renderPaidButton(this.state.andrew, "AL")}</th>
+                                            <th>{this.renderPaidButton(this.state.merryle, "MW")}</th>
+                                            <th>{this.renderPaidButton(this.state.charles, "CY")}</th>
+                                            <th>{this.renderPaidButton(this.state.matthew, "MR")}</th>
+                                        </tr>
                                     </tbody>
                                 </Table>
                             </GeneralTemplate>
@@ -481,12 +577,7 @@ class GroceryListEdit extends Component {
                                         {this.renderNewItems()}
                                     </tbody>
                                 </Table>
-                                
-                                
-                                
-                                    
-    
-                                
+ 
                             </GeneralTemplate>
                         </div>
                     </div>
