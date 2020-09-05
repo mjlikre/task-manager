@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import GeneralTemplate from "./../components/GeneralTable/GeneralTemplate"
 import GeneralButton from "./../components/Button/GeneralButton" /* Takes in "type", "handleClick", "name" */
 import { Table } from "react-bootstrap"
-import { getSingleGroceryList, addNewItem, updateItem, deleteItem, createCostSplit, updateCostSplist, getCostSplit } from "./../actions"
+import { getSingleGroceryList, addNewItem, updateItem, deleteItem, createCostSplit, updateCostSplist, getCostSplit, addMultipleItems } from "./../actions"
 import uuid from "react-uuid"
 import "./../styling/main.css"
 
@@ -30,9 +30,11 @@ class GroceryListEdit extends Component {
             matthew: 0,
             authenticated: false,
             amount: 0,
-            paid: 0
+            paid: 0, 
+            largeInputList: ""
         };
         this.newItemHandle = this.newItemHandle.bind(this)
+        this.largeInputHandle = this.largeInputHandle.bind(this)
       }
     componentDidMount () {
         const token = localStorage.getItem("token")
@@ -85,6 +87,23 @@ class GroceryListEdit extends Component {
         }
         
     }
+
+    largeInputHandle() {
+        let listString = this.state.largeInputList
+        let id = this.state.id
+        let data = {
+            string: listString, 
+            id: id
+        }
+        this.props.addMultipleItems(data, ()=> {
+            this.setState({
+                item_list : this.props.grocery
+            }, ()=>{
+                this.handleCostAllocation()
+            })
+        })
+        
+    }
     newItemHandle () {
         const item = {
             id: this.state.id,
@@ -96,13 +115,13 @@ class GroceryListEdit extends Component {
             JC: 1,
             CO: 1,
             ER: 1,
-            CW: 0,
+            CW: 1,
             AL: 1,
             MW: 1,
             CY: 1,
             MR: 1,
-            shareBetween: 9,
-            ppp: (this.state.newItemPrice/9).toFixed(2)
+            shareBetween: 10,
+            ppp: (this.state.newItemPrice/10).toFixed(2)
         }
         // items.push(item)
         this.props.addNewItem(item, ()=>{
@@ -261,8 +280,11 @@ class GroceryListEdit extends Component {
                 item_list : this.props.grocery
             }, () => {this.handleCostAllocation()})
         })
-        
-
+    }
+    handleLargeInput(value) {
+        this.setState({
+            largeInputList: value
+        })
     }
     renderNewItems() {
         if (this.state.item_list.length !== 0) {
@@ -527,12 +549,15 @@ class GroceryListEdit extends Component {
                     <div className = "row">
                         <div className = "kjga-display-block col-lg-12">
                             <GeneralTemplate name = "Grocery List">
-                                <div>
-                                    Total: {this.state.amount} |
+                                <div className = "row">
+                                    <div>
+                                        Total: {this.state.amount} |
+                                    </div>
+                                    <div>
+                                        Paid: {this.state.paid}
+                                    </div>
                                 </div>
-                                <div>
-                                    Paid: {this.state.paid}
-                                </div>
+                                
                                 <div className = "row">
                                     <div className = "col-md-3">
                                         <label className = "col-md-12">Item Name</label>
@@ -551,7 +576,17 @@ class GroceryListEdit extends Component {
                                     </div>
     
                                 </div>
+                                <div className = "row">
+                                    <div className = "col-lg-6">
+                                        <label className = "col-md-12">Large Input</label>
+                                        <textarea className = "col-md-12 kjga-input-box"type = "text" onChange = {event => {this.handleLargeInput(event.target.value)}} value = {this.state.largeInputList}/> 
+                                    </div>
+                                    <div className = "col-lg-6">
+                                        <br></br>
+                                        <GeneralButton type = "primary" buttonName = "Add Large List" handleClick = {this.largeInputHandle}/>
+                                    </div>
                                 
+                                </div>
                                 
                                 
                                 <Table>
@@ -617,4 +652,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { getSingleGroceryList, addNewItem, updateItem, deleteItem, createCostSplit, updateCostSplist, getCostSplit })(GroceryListEdit)
+export default connect(mapStateToProps, { getSingleGroceryList, addNewItem, updateItem, deleteItem, createCostSplit, updateCostSplist, getCostSplit, addMultipleItems })(GroceryListEdit)

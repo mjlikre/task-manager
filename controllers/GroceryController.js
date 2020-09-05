@@ -441,4 +441,55 @@ module.exports = {
     quickSub(array, 0, array.length -1, order)
     return array
   },
+  addMultiple: async(req, res) => {
+    try{ 
+      // const time = Date.now()
+      let data = []
+      req.body.string.split("\n").map((item, index) => {
+        let tempData = {} 
+        // const time = Date.now()
+        tempData.grocery_list_id= req.body.id
+        tempData.id= uuid.v4(),
+        tempData.item= item.split(",")[0]
+        tempData.price= parseFloat(item.split(",")[1]),
+        tempData.TC= 1,
+        tempData.MJ= 1,
+        tempData.JC= 1,
+        tempData.CO= 1,
+        tempData.ER= 1,
+        tempData.CW= 1,
+        tempData.AL= 1,
+        tempData.MW= 1,
+        tempData.CY= 1,
+        tempData.MR= 1,
+        tempData.shareBetween= 10,
+        tempData.ppp= parseFloat((tempData.price/10).toFixed(2)),
+        tempData.time_created= parseInt(Date.now()) + index
+        data[index] = tempData 
+      })
+      console.log(data)
+      const query = "INSERT INTO grocery_item SET ?"
+      data.map(async (item, index) => {
+        await client.Client.query(
+          query, 
+          item,
+          (err, result)=> {
+            if (err) console.log(err)
+            console.log(result)
+          }
+        )
+      })
+      await client.Client.query(
+        "SELECT * FROM grocery_item WHERE grocery_list_id = ? ORDER BY time_created DESC",
+        [req.body.id],
+        (err, result) => {
+          if (err) console.log(err);
+          res.json({data: result})
+        }
+      ) 
+    }catch(e) {
+      console.log(e)
+      res.json(500).json({error: "Server Error, contact uncle mike"})
+    }
+  }
 };

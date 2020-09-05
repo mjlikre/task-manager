@@ -5,7 +5,7 @@ require("dotenv").config();
 module.exports = {
     migrate_new_list : async (req, res) => {
         try{
-            const query = "SELECT * FROM grocery_overviews"
+            const query = "SELECT * FROM grocery_item"
             await client.Client.query(
                 query, 
                 (err, result) => {
@@ -26,7 +26,7 @@ module.exports = {
     },
     addToNewList: async(data, index) => {
         try{
-            const query = "INSERT INTO grocery_overview SET ?";
+            const query = "INSERT INTO grocery_items SET ?";
             await client.Client.query(
                 query, 
                 {

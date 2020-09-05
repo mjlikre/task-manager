@@ -39,9 +39,10 @@ router.route("/get_split")
 router.route("/get_all_split")
     .post(authMiddleware.requireAuth, groceryControllers.getAllSplit)
 
-// router.route("/changes")
-//     
+router.route("/addmultiple")
+    .post(authMiddleware.requireAuth, groceryControllers.addMultiple)
 
 router.route("/gtime")
     .post(changesControllers.migrate_new_list)
+
 module.exports = router;

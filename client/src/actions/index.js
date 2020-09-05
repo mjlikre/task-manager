@@ -19,7 +19,8 @@ import {
   GET_ALL_COST_SPLIT,
   GET_ALL_COST_SPLIT_ERROR,
   GET_ONE_GROCERY_OVERVIEW, 
-  GET_ONE_GROCERY_OVERVIEW_ERROR
+  GET_ONE_GROCERY_OVERVIEW_ERROR,
+
 } from "./types";
 import axios from "axios";
 
@@ -224,5 +225,16 @@ export const GetAllCostSplit = (callback) => async(dispatch) => {
   }catch(e) {
     console.log(e, "can't get all data")
     dispatch({type: GET_ALL_COST_SPLIT_ERROR, payload: e})
+  }
+}
+
+export const addMultipleItems = ( data ,callback) => async(dispatch) => {
+  try{
+    const res = await axios.post("/api/grocery/addmultiple", data , {headers: {authorization: localStorage.getItem("token")}})
+    dispatch({type: GROCERY_ITEM_LIST, payload: res.data.data})
+    await callback()
+  }catch(e) {
+    console.log(e, "can't get data")
+    dispatch({type: ADD_NEW_ITEM_ERROR, payload: e})
   }
 }
