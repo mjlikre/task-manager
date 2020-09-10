@@ -577,6 +577,7 @@ module.exports = {
             }
             // console.log(accounting)
           }
+          balancing(accounting_pre)
           res.json({data: accounting_pre})
         }
       )
