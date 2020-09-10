@@ -457,13 +457,13 @@ module.exports = {
           (tempData.JC = 1),
           (tempData.CO = 1),
           (tempData.ER = 1),
-          (tempData.CW = 1),
+          (tempData.CW = 0),
           (tempData.AL = 1),
           (tempData.MW = 1),
           (tempData.CY = 1),
           (tempData.MR = 1),
-          (tempData.shareBetween = 10),
-          (tempData.ppp = parseFloat((tempData.price / 10).toFixed(2))),
+          (tempData.shareBetween = 9),
+          (tempData.ppp = parseFloat((tempData.price / 9).toFixed(2))),
           (tempData.time_created = parseInt(Date.now()) + index);
         data[index] = tempData;
       });
