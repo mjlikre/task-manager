@@ -232,7 +232,7 @@ export const GetAllCostSplit = (callback) => async(dispatch) => {
 
 export const getTotalBalance = (callback) => async(dispatch) => {
   try{
-    const res = await axios.get("/api/grocery/getCalculation")
+    const res = await axios.post("/api/grocery/getCalculation")
     dispatch({type: GET_TOTAL_BALANCE, payload: res.data})
     await callback()
   }catch(e) {

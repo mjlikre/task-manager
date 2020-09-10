@@ -45,7 +45,7 @@ router.route("/addmultiple")
 router.route("/gtime")
     .post(changesControllers.migrate_new_list)
 
-router.route("/getCalculation")
-    .get(groceryControllers.calculatePersonalOwning)
+router.route('/getCalculation')
+    .post(groceryControllers.calculatePersonalOwning)
 
 module.exports = router;
