@@ -379,9 +379,7 @@ module.exports = {
               [username],
               (err, result2) => {
                 if (err) console.log(err, "something went wrong")
-                const finalData = module.exports.calculatePersonalOwning()
-                console.log(finalData)
-                res.json({data: {user: username, email: email, results: result2, personal: finalData}})
+                res.json({data: {user: username, email: email, results: result2}})
               }
             )
 
@@ -511,7 +509,7 @@ module.exports = {
     try {
       await client.Client.query(
         query, 
-        async (err, result) => {
+        (err, result) => {
           if (err) {
             console.log(err);
             return
@@ -579,9 +577,6 @@ module.exports = {
             }
             // console.log(accounting)
           }
-          balancing(accounting_pre)
-          
-          // console.log(finalData)
           res.json({data: accounting_pre})
         }
       )
