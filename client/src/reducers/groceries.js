@@ -15,7 +15,9 @@ import {
   GET_ALL_COST_SPLIT,
   GET_ALL_COST_SPLIT_ERROR,
   GET_ONE_GROCERY_OVERVIEW,
-  GET_ONE_GROCERY_OVERVIEW_ERROR
+  GET_ONE_GROCERY_OVERVIEW_ERROR,
+  GET_TOTAL_BALANCE,
+  GET_TOTAL_BALANCE_ERROR
 } from "./../actions/types";
 
 const INITIAL_STATE = {
@@ -34,7 +36,9 @@ const INITIAL_STATE = {
   allCostSplit: [],
   allCostSplitError: "",
   getOneGroceryOverview: "",
-  getOneGroceryOverviewError: ""
+  getOneGroceryOverviewError: "",
+  totalBalance: "",
+  totalBalanceError: ""
 
 };
 
@@ -74,6 +78,10 @@ export default function (state = INITIAL_STATE, action) {
       return {...state, getOneGroceryOverview: action.payload}
     case GET_ONE_GROCERY_OVERVIEW_ERROR: 
       return {...state, getOneGroceryOverviewError: action.paylod}
+    case GET_TOTAL_BALANCE: 
+      return {...state, totalBalance: action.payload}
+    case GET_TOTAL_BALANCE_ERROR: 
+      return {...state, totalBalanceError: action.payload}
     default:
       return state;
   }

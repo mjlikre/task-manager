@@ -1,5 +1,6 @@
 const client = require("../models");
 const uuid = require("uuid");
+const { set } = require("mongoose");
 require('dotenv').config()
 
 module.exports = {
@@ -353,33 +354,34 @@ module.exports = {
             const email = result[0].email
             let query = ""
             if (username === "TC") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.TC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.TC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.TC > 0;"
             }else if (username === "MJ") { 
-              query = "SELECT cost_split.grocery_list_id, cost_split.MJ, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.MJ, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.MJ > 0;"
             }else if (username === "CO") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.CO, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.CO, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.CO > 0;"
             }else if (username === "ER") { 
-              query = "SELECT cost_split.grocery_list_id, cost_split.ER, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.ER, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.ER > 0;"
             }else if (username === "JC") { 
-              query = "SELECT cost_split.grocery_list_id, cost_split.JC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.JC, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.JC > 0;"
             }else if (username === "CW") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.CW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.CW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.CW > 0;"
             }else if (username === "CY") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.CY, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.CY, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.CY > 0;"
             }else if (username === "MW") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.MW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.MW, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.MW > 0;"
             }else if (username === "AL") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.AL, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.AL, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.AL > 0;"
             }else if (username === "MR") {
-              query = "SELECT cost_split.grocery_list_id, cost_split.MR, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id;"
+              query = "SELECT cost_split.grocery_list_id, cost_split.MR, grocery_overview.shop_date, grocery_overview.total, grocery_overview.payto, grocery_overview.shopper FROM cost_split LEFT JOIN grocery_overview ON cost_split.grocery_list_id = grocery_overview.id WHERE cost_split.MR > 0;"
             }
             await client.Client.query(
               query, 
               [username],
               (err, result2) => {
                 if (err) console.log(err, "something went wrong")
-
-                res.json({data: {user: username, email: email, results: result2}})
+                const finalData = module.exports.calculatePersonalOwning()
+                console.log(finalData)
+                res.json({data: {user: username, email: email, results: result2, personal: finalData}})
               }
             )
 
@@ -490,6 +492,103 @@ module.exports = {
     }catch(e) {
       console.log(e)
       res.json(500).json({error: "Server Error, contact uncle mike"})
+    }
+  },
+  calculatePersonalOwning: async(req, res) => {
+    const query = "SELECT cost_split.TC, cost_split.MJ, cost_split.CO, cost_split.JC, cost_split.ER, cost_split.CW, cost_split.MR, cost_split.CY, cost_split.MW, cost_split.AL, grocery_overview.payto FROM cost_split inner join grocery_overview on cost_split.grocery_list_id = grocery_overview.id";
+    let accounting = {
+      MJ: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      TC: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      AL: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      ER: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      JC: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      CO: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      MW: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      CW: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      CY: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0],
+      MR: ["MJ",0,"TC", 0,"AL", 0,"ER", 0,"JC", 0,"CO", 0,"CW", 0,"CY", 0,"MW", 0,"MR", 0]
+    }
+    try {
+      await client.Client.query(
+        query, 
+        async (err, result) => {
+          if (err) {
+            console.log(err);
+            return
+          };
+          result.map((item, index) => {
+            if (item.MJ !== 0 && item.payto !== "MJ") {
+              let payToIndex = accounting.MJ.indexOf(item.payto)
+              accounting.MJ[payToIndex + 1] += item.MJ
+            }
+            if (item.TC !== 0 && item.payto !== "TC") {
+              let payToIndex = accounting.TC.indexOf(item.payto)
+              accounting.TC[payToIndex + 1] += item.TC
+            }
+            if (item.CO !== 0 && item.payto !== "CO") {
+              let payToIndex = accounting.CO.indexOf(item.payto)
+              accounting.CO[payToIndex + 1] += item.CO
+            }
+            if (item.JC !== 0 && item.payto !== "JC") {
+              let payToIndex = accounting.JC.indexOf(item.payto)
+              accounting.JC[payToIndex + 1] += item.JC
+            }
+            if (item.MW !== 0 && item.payto !== "MW") {
+              let payToIndex = accounting.MW.indexOf(item.payto)
+              accounting.MW[payToIndex + 1] += item.MW
+            }
+            if (item.MR !== 0 && item.payto !== "MR") {
+              let payToIndex = accounting.MR.indexOf(item.payto)
+              accounting.MR[payToIndex + 1] += item.MR
+            }
+            if (item.ER !== 0 && item.payto !== "ER") {
+              let payToIndex = accounting.ER.indexOf(item.payto)
+              accounting.ER[payToIndex + 1] += item.ER
+            }
+            if (item.CW !== 0 && item.payto !== "CW") {
+              let payToIndex = accounting.CW.indexOf(item.payto)
+              accounting.CW[payToIndex + 1] += item.CW
+            }
+            if (item.AL !== 0 && item.payto !== "AL") {
+              let payToIndex = accounting.AL.indexOf(item.payto)
+              accounting.AL[payToIndex + 1] += item.AL
+            }
+            if (item.CY !== 0 && item.payto !== "CY") {
+              let payToIndex = accounting.CY.indexOf(item.payto)
+              accounting.CY[payToIndex + 1] += item.CY
+            }
+          })
+          accounting_pre = Object.entries(accounting)
+          const balancing = (list) => {
+            let accountings = list
+            for(let i = 0; i < accountings.length; i ++) {
+              for(let j = 0; j < accountings.length; j ++) {
+                for (let k = 0; k < 20; k += 2) {
+                  if (accountings[i][0] === accountings[j][1][k] && accountings[j][1][k+1] > 0){ 
+                    let thisIndex = accountings[i][1].indexOf(accountings[j][0])
+                    if (accountings[j][1][k+1] > accountings[i][1][thisIndex+1]) {
+                      accountings[j][1][k+1] = accountings[j][1][k+1] - accountings[i][1][thisIndex+1]
+                      accountings[i][1][thisIndex+1] = 0
+                    }else if(accountings[j][1][k+1] > accountings[i][1][thisIndex+1]){
+                      accountings[i][1][thisIndex+1] = accountings[i][1][thisIndex+1] - accountings[j][1][k+1]
+                      accountings[j][1][k+1] = 0
+                    }
+                  }
+                }
+              }
+            }
+            // console.log(accounting)
+          }
+          balancing(accounting_pre)
+          
+          // console.log(finalData)
+          res.json({data: accounting_pre})
+        }
+      )
+      // console.log(finalData)
+    }catch(e) {
+      console.log(e)
+      return false
     }
   }
 };

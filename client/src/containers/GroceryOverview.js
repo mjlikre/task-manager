@@ -165,6 +165,7 @@ class GroceryOverview extends Component {
                     </Form.Group>
                     <Form.Group controlId="formBasicText">
                       <Form.Label>Pay To</Form.Label>
+                      
                       <Form.Control
                         type="text"
                         placeholder="Person who paid for this"

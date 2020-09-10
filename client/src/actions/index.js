@@ -20,6 +20,8 @@ import {
   GET_ALL_COST_SPLIT_ERROR,
   GET_ONE_GROCERY_OVERVIEW, 
   GET_ONE_GROCERY_OVERVIEW_ERROR,
+  GET_TOTAL_BALANCE,
+  GET_TOTAL_BALANCE_ERROR
 
 } from "./types";
 import axios from "axios";
@@ -225,6 +227,18 @@ export const GetAllCostSplit = (callback) => async(dispatch) => {
   }catch(e) {
     console.log(e, "can't get all data")
     dispatch({type: GET_ALL_COST_SPLIT_ERROR, payload: e})
+  }
+}
+
+export const getTotalBalance = (callback) => async(dispatch) => {
+  try{
+    const res = await axios.get("/api/grocery/calc")
+    dispatch({type: GET_TOTAL_BALANCE, payload: res.data})
+    await callback()
+  }catch(e) {
+    console.log(e)
+    dispatch({type: GET_TOTAL_BALANCE_ERROR, payload: e})
+    
   }
 }
 
