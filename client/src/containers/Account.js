@@ -109,20 +109,20 @@ class Account extends Component {
   }
   renderPaymentBoxO() {
     if (this.state.totalBalance !== 0) {
-      return this.state.totalBalance.data.map((item, index) => {
-        if (item[0] === this.state.data.user) {
-          for (let i = 1; i < item[1].length; i += 2) {
-            if (item[1][i] > 0) {
-              return (
-                <tr>
-                  <th>{this.nameConversion(item[1][i - 1])}</th>
-                  <th>{item[1][i]}</th>
-                </tr>
-              );
+        return this.state.totalBalance.data.map((item, index) => {
+            if (item[0] === this.state.data.user) {
+              return item[1].map((person, personIndex) => {
+                  if (!isNaN(person) && person > 0){
+                    return (
+                        <tr>
+                            <th>{this.nameConversion(item[1][personIndex-1])}</th>
+                            <th>{item[1][personIndex]}</th>
+                        </tr>
+                    )
+                  }
+              })
             }
-          }
-        }
-      });
+        });
     }
   }
   renderPaymentBoxOs() {
