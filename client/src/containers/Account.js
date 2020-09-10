@@ -109,7 +109,6 @@ class Account extends Component {
   }
   renderPaymentBoxO() {
     if (this.state.totalBalance !== 0) {
-      console.log(this.state.totalBalance)
       return this.state.totalBalance.data.map((item, index) => {
         if (item[0] === this.state.data.user) {
           for (let i = 1; i < item[1].length; i += 2) {
@@ -124,8 +123,6 @@ class Account extends Component {
           }
         }
       });
-    }else{
-        console.log("data can't be found")
     }
   }
   renderPaymentBoxOs() {
