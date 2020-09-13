@@ -15,7 +15,6 @@ router.route('/signin')
 router.route("/edit")
   .post(authMiddleware.requireSignIn, authController.passwordChange)
 
-router.route("/username")
-  .get(authMiddleware.requireAuth, authController.getUserName)
+
 
 module.exports = router;

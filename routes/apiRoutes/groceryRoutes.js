@@ -48,4 +48,7 @@ router.route("/gtime")
 router.route('/getCalculation')
     .post(groceryControllers.calculatePersonalOwning)
 
+router.route("/username")
+    .post(authMiddleware.requireAuth, groceryControllers.getUserName)
+
 module.exports = router;

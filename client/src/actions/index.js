@@ -257,7 +257,7 @@ export const addMultipleItems = (data ,callback) => async(dispatch) => {
 
 export const getUserName = (callback) => async(dispatch) => {
   try{
-    const res = await axios.get("/api/auth/username", {headers: {authorization: localStorage.getItem("token")}})
+    const res = await axios.post("/api/grocery/username", {data: "sonething"}, {headers: {authorization: localStorage.getItem("token")}})
     dispatch({type: GET_USER_NAME, payload: res.data})
     await callback()
 
