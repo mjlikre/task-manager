@@ -3,11 +3,12 @@ import Navbar from "./../components/NavBar/index";
 import { connect } from "react-redux";
 import GeneralTalbe from "./../components/GeneralTable/GeneralTable";
 import GeneranButton from "./../components/Button/GeneralButton";
-import { Form, Button, Modal } from "react-bootstrap";
-import { createNewGroceryList, getAllGroceryList, createCostSplit, test } from "./../actions";
+import { Form, Button, Modal, Table } from "react-bootstrap";
+import { createNewGroceryList, getAllGroceryList, createCostSplit, test, getTotalBalance, getUserName } from "./../actions";
 import { Redirect } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import GeneralTemplate from "../components/GeneralTable/GeneralTemplate";
 class GroceryOverview extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +22,9 @@ class GroceryOverview extends Component {
       redirect: false,
       id: "",
       grocery_list: false,
-      startDate: ""
+      startDate: "",
+      totalBalance: 0,
+      userName: ""
     };
   }
   componentDidMount() {
@@ -31,13 +34,80 @@ class GroceryOverview extends Component {
     }
     else{
       this.props.getAllGroceryList(() => {
-        this.setState({
-          grocery_list: this.props.grocery,
+        this.props.getTotalBalance( ()=> {
+          this.props.getUserName(() => {
+            this.setState(
+              {
+                data: this.props.costSplits,
+                totalBalance: this.props.totalBalance,
+                grocery_list: this.props.grocery,
+                userName: this.props.username
+              })
+            })
+            
+          })
+        })
+      }
+  }
+  renderPaymentBoxO() {
+    if (this.state.totalBalance !== 0) {
+        return this.state.totalBalance.data.map((item, index) => {
+            if (item[0] === this.state.userName.data) {
+              return item[1].map((person, personIndex) => {
+                  if (!isNaN(person) && person > 0){
+                    return (
+                        <tr>
+                            <th>{this.nameConversion(item[1][personIndex-1])}</th>
+                            <th>{item[1][personIndex]}</th>
+                        </tr>
+                    )
+                  }
+              })
+            }
         });
+    }
+  }
+  renderPaymentBoxOs() {
+    if (this.state.totalBalance !== 0) {
+      console.log(this.state.userName.data)
+      return this.state.totalBalance.data.map((item, index) => {
+        if (item[0] !== this.state.userName.data) {
+          for (let i = 0; i < item[1].length; i += 2) {
+            if (item[1][i] === this.state.userName.data && item[1][i + 1] > 0) {
+              return (
+                <tr>
+                  <th>{this.nameConversion(item[0])}</th>
+                  <th>{item[1][i + 1]}</th>
+                </tr>
+              );
+            }
+          }
+        }
       });
     }
-
-    
+  }
+  nameConversion(name) {
+    if (name === "TC") {
+      return "Toby Chen";
+    } else if (name === "MJ") {
+      return "Michael Jiang";
+    } else if (name === "CO") {
+      return "Chibubu";
+    } else if (name === "JC") {
+      return "John Choi";
+    } else if (name === "ER") {
+      return "Emilio";
+    } else if (name === "CW") {
+      return "Chris Wong";
+    } else if (name === "AL") {
+      return "Phillip";
+    } else if (name === "MR") {
+      return "Tony";
+    } else if (name === "MW") {
+      return "Merryle";
+    } else if (name === "CY") {
+      return "Joe";
+    }
   }
   handleDateChange = date => { 
     
@@ -110,6 +180,29 @@ class GroceryOverview extends Component {
                   }}
                 />
               </GeneralTalbe>
+              <GeneralTemplate name = "Balance Sheet">
+                  <h4>Who you owe</h4>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th className="paymentTable">Person</th>
+                        <th className="paymentTable">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>{this.renderPaymentBoxO()}</tbody>
+                  </Table>
+                  <h4>Who owes you</h4>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th className="paymentTable">Person</th>
+                        <th className="paymentTable">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>{this.renderPaymentBoxOs()}</tbody>
+                  </Table>
+
+              </GeneralTemplate>
       
               <Modal
                 show={this.state.show}
@@ -208,6 +301,8 @@ function mapStateToProps(state) {
     newGrocery: state.grocery.newGrocery,
     newGroceryError: state.grocery.newGroceryError,
     groceryError: state.grocery.allGroceryError,
+    totalBalance: state.grocery.totalBalance,
+    username: state.auth.username
   };
 }
 
@@ -215,5 +310,7 @@ export default connect(mapStateToProps, {
   createNewGroceryList,
   getAllGroceryList,
   createCostSplit,
-  test
+  test,
+  getTotalBalance,
+  getUserName
 })(GroceryOverview);

@@ -21,7 +21,9 @@ import {
   GET_ONE_GROCERY_OVERVIEW, 
   GET_ONE_GROCERY_OVERVIEW_ERROR,
   GET_TOTAL_BALANCE,
-  GET_TOTAL_BALANCE_ERROR
+  GET_TOTAL_BALANCE_ERROR,
+  GET_USER_NAME,
+  GET_USER_NAME_ERROR
 
 } from "./types";
 import axios from "axios";
@@ -242,7 +244,7 @@ export const getTotalBalance = (callback) => async(dispatch) => {
   }
 }
 
-export const addMultipleItems = ( data ,callback) => async(dispatch) => {
+export const addMultipleItems = (data ,callback) => async(dispatch) => {
   try{
     const res = await axios.post("/api/grocery/addmultiple", data , {headers: {authorization: localStorage.getItem("token")}})
     dispatch({type: GROCERY_ITEM_LIST, payload: res.data.data})
@@ -250,5 +252,17 @@ export const addMultipleItems = ( data ,callback) => async(dispatch) => {
   }catch(e) {
     console.log(e, "can't get data")
     dispatch({type: ADD_NEW_ITEM_ERROR, payload: e})
+  }
+}
+
+export const getUserName = (callback) => async(dispatch) => {
+  try{
+    const res = await axios.get("/api/auth/username", {headers: {authorization: localStorage.getItem("token")}})
+    dispatch({type: GET_USER_NAME, payload: res.data})
+    await callback()
+
+  }catch(e) {
+    console.log(e)
+    dispatch({type: GET_USER_NAME_ERROR, payload: e})
   }
 }

@@ -77,5 +77,22 @@ module.exports = {
     }catch(e) {
       console.log(e)
     }
+  },
+  getUserName: async(req, res) => {
+    const query = "SELECT * FROM auth WHERE user_id = ?"
+    try{
+      await client.Client.query(
+        query, 
+        req.user,
+        (err, result) => {
+          if (err) throw err; 
+          res.json({data: result[0].user_name})
+        }
+      )
+    }catch(e) {
+      console.log(e) 
+      res.json({data: e})
+
+    }
   }
 };
