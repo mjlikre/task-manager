@@ -88,7 +88,8 @@ module.exports = {
   },
   getAllGroceryList: async (req, res) => {
     try {
-      const query = "SELECT * FROM grocery_overview INNER JOIN cost_split ON grocery_overview.id = cost_split.grocery_list_id WHERE cost_split.AL > 0 or cost_split.MJ > 0 or cost_split.TC > 0 or cost_split.JC > 0 or cost_split.CO > 0 or cost_split.CW > 0 or cost_split.CY > 0 or cost_split.MW > 0 or cost_split.MR > 0 or cost_split.ER > 0";
+      const query =
+        "SELECT * FROM grocery_overview INNER JOIN cost_split ON grocery_overview.id = cost_split.grocery_list_id WHERE cost_split.AL > 0 or cost_split.MJ > 0 or cost_split.TC > 0 or cost_split.JC > 0 or cost_split.CO > 0 or cost_split.CW > 0 or cost_split.CY > 0 or cost_split.MW > 0 or cost_split.MR > 0 or cost_split.ER > 0";
 
       await client.Client.query(query, async (err, result) => {
         await client.Client.query(
@@ -505,11 +506,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -527,11 +528,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -549,11 +550,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -571,11 +572,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -593,11 +594,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -615,11 +616,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -637,11 +638,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -659,11 +660,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -681,11 +682,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -703,11 +704,11 @@ module.exports = {
         0,
         "CO",
         0,
+        "MW",
+        0,
         "CW",
         0,
         "CY",
-        0,
-        "MW",
         0,
         "MR",
         0,
@@ -800,23 +801,16 @@ module.exports = {
       return false;
     }
   },
-  getUserName: async(req, res) => {
-    const query = "SELECT * FROM auth WHERE user_id = ?"
-    try{
-      await client.Client.query(
-        query, 
-        req.user,
-        (err, result) => {
-          if (err) throw err; 
-          res.json({data: result[0].user_name})
-        }
-      )
-    }catch(e) {
-      console.log(e) 
-      res.json({data: e})
-
+  getUserName: async (req, res) => {
+    const query = "SELECT * FROM auth WHERE user_id = ?";
+    try {
+      await client.Client.query(query, req.user, (err, result) => {
+        if (err) throw err;
+        res.json({ data: result[0].user_name });
+      });
+    } catch (e) {
+      console.log(e);
+      res.json({ data: e });
     }
-  }
+  },
 };
-
-

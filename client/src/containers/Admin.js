@@ -161,9 +161,9 @@ class Admin extends Component {
                         <th>Emilio</th>
                         <th>John</th>
                         <th>Chibuzor</th>
+                        <th>Merryle</th>
                         <th>Chris</th>
                         <th>Joe</th>
-                        <th>Merryle</th>
                         <th>Tony</th>
                         <th>Owes</th>
                       </tr>
