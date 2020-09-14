@@ -15,6 +15,7 @@ import Welcome from "./containers/WelcomePage";
 import GroceryList from "./containers/GroceryList";
 import GroceryOverview from "./containers/GroceryOverview";
 import GroceryListEdit from "./containers/GroceryListEdit";
+import Admin from "./containers/Admin"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import reducers from './reducers';
@@ -44,6 +45,7 @@ ReactDOM.render(
         <Route path="/gl" component = {GroceryList}/>
         <Route path="/gle" component = {GroceryListEdit}/>
         <Route path="/account" component = {Account} />
+        <Route path="/admin" component = {Admin}/>
 
     </Router>
   </Provider>
