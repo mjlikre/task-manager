@@ -166,7 +166,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="col-lg-12">
                   <h4>Latest Shopping Detail</h4>
-                  <Table striped bordered hover>
+                  <Table striped bordered>
                     <thead>
                       <tr>
                         <th>Shop Date</th>
@@ -180,7 +180,7 @@ class Dashboard extends Component {
                   <br />
                   <br />
                   <h4>Who you owe</h4>
-                  <Table striped bordered hover>
+                  <Table striped bordered>
                     <thead>
                       <tr>
                         <th className="paymentTable">Person</th>
@@ -190,7 +190,7 @@ class Dashboard extends Component {
                     <tbody>{this.renderPaymentBoxO()}</tbody>
                   </Table>
                   <h4>Who owes you</h4>
-                  <Table striped bordered hover>
+                  <Table striped bordered>
                     <thead>
                       <tr>
                         <th className="paymentTable">Person</th>

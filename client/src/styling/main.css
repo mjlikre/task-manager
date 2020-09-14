@@ -51,3 +51,17 @@
 .kjga-input-box {
     border: 1px solid black
 }
+
+.name-box {
+    width: 120px;
+    height: 38px;
+    border: 1px black solid;
+    padding-left: 10px;
+    font-size: 25px;
+}
+
+.dropdown-container {
+    display: grid;
+    grid-template-columns: 120px 50px 50px 50px;
+    grid-template-rows: auto;
+}

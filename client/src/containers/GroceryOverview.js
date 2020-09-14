@@ -3,7 +3,7 @@ import Navbar from "./../components/NavBar/index";
 import { connect } from "react-redux";
 import GeneralTalbe from "./../components/GeneralTable/GeneralTable";
 import GeneranButton from "./../components/Button/GeneralButton";
-import { Form, Button, Modal, Table } from "react-bootstrap";
+import { Form, Button, Modal, Dropdown } from "react-bootstrap";
 import { createNewGroceryList, getAllGroceryList, createCostSplit, test} from "./../actions";
 import { Redirect } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -83,17 +83,17 @@ class GroceryOverview extends Component {
   }
   nameConversion(name) {
     if (name === "TC") {
-      return "Toby Chen";
+      return "Toby";
     } else if (name === "MJ") {
-      return "Michael Jiang";
+      return "Michael";
     } else if (name === "CO") {
-      return "Chibubu";
+      return "Chibuzor";
     } else if (name === "JC") {
-      return "John Choi";
+      return "John";
     } else if (name === "ER") {
       return "Emilio";
     } else if (name === "CW") {
-      return "Chris Wong";
+      return "Chris";
     } else if (name === "AL") {
       return "Phillip";
     } else if (name === "MR") {
@@ -230,14 +230,34 @@ class GroceryOverview extends Component {
                     </Form.Group>
                     <Form.Group controlId="formBasicText">
                       <Form.Label>Pay To</Form.Label>
+                      <div className = "dropdown-container">
+                        
+                        <div className = "name-box">{this.nameConversion(this.state.payto)}</div>
+                        <div className = "col-lg-6">
+                          <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                              Select
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "TC"})}}>Toby</Dropdown.Item>
+                              <Dropdown.Item href="#/action-2" onClick ={() => {this.setState({payto: "MJ"})}}>Michael</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "CO"})}}>Chibuzor</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "ER"})}}>Emilio</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "AL"})}}>Phillip</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "CY"})}}>Joe</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "MR"})}}>Tony</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "CW"})}}>Chris</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "JC"})}}>John</Dropdown.Item>
+                              <Dropdown.Item href="#/action-1" onClick ={() => {this.setState({payto: "MW"})}}>Merryle</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </div>
+                      </div>
                       
-                      <Form.Control
-                        type="text"
-                        placeholder="Person who paid for this"
-                        onChange={(e) => {
-                          this.setState({ payto: e.target.value });
-                        }}
-                      />
+                      
+                      
+                      
                     </Form.Group>
                     
                   </Form>
