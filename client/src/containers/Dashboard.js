@@ -1,34 +1,17 @@
 import React, { Component } from "react";
-import Navbar from "./../components/NavBar/index";
 import { connect } from "react-redux";
-import GeneralTemplate from "./../components/GeneralTable/GeneralTemplate";
-import GeneralButton from "./../components/Button/GeneralButton";
-import { Form, Button, Modal, Table } from "react-bootstrap";
-import {
-  GetAllCostSplit,
-  changePass,
-  signout,
-  getTotalBalance,
-} from "./../actions/index";
+import {  Table } from "react-bootstrap";
+import { GetAllCostSplit, getTotalBalance } from "./../actions/index";
 
-class Account extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: 0,
-      username: "",
-      show: false,
-      password: "",
-      newpass: "",
       totalBalance: 0,
     };
   }
-  handleClose = () => {
-    this.setState({ show: false });
-  };
-  handleShow = () => {
-    this.setState({ show: true });
-  };
+
   componentDidMount() {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/home");
@@ -109,20 +92,20 @@ class Account extends Component {
   }
   renderPaymentBoxO() {
     if (this.state.totalBalance !== 0) {
-        return this.state.totalBalance.data.map((item, index) => {
-            if (item[0] === this.state.data.user) {
-              return item[1].map((person, personIndex) => {
-                  if (!isNaN(person) && person > 0){
-                    return (
-                        <tr>
-                            <th>{this.nameConversion(item[1][personIndex-1])}</th>
-                            <th>{item[1][personIndex]}</th>
-                        </tr>
-                    )
-                  }
-              })
+      return this.state.totalBalance.data.map((item, index) => {
+        if (item[0] === this.state.data.user) {
+          return item[1].map((person, personIndex) => {
+            if (!isNaN(person) && person > 0) {
+              return (
+                <tr>
+                  <th>{this.nameConversion(item[1][personIndex - 1])}</th>
+                  <th>{item[1][personIndex]}</th>
+                </tr>
+              );
             }
-        });
+          });
+        }
+      });
     }
   }
   renderPaymentBoxOs() {
@@ -166,33 +149,38 @@ class Account extends Component {
       return "Joe";
     }
   }
-  onSubmit() {
-    const data = {
-      username: this.state.data.email,
-      password: this.state.password,
-      newpass: this.state.newpass,
-    };
-    this.props.changePass(data, this.props.history.push("/signout"));
-  }
+
   render() {
     return (
       <div>
-        <Navbar navType="grocery" />
+        
         <div className="row">
-          <div className="kjga-display-block col-lg-12">
-            <GeneralTemplate name="Account Details">
+            <div className = "col-lg-3"></div>
+          <div className="kjga-display-block col-lg-6">
               <div className="row">
                 <div
                   className="col-lg-12"
                   style={{ padding: "20px 0 20px 20px" }}
                 >
+                  <h3>Hi, {this.state.username}</h3>
                 </div>
                 <div className="col-lg-12">
-                  
+                  <h4>Latest Shopping Detail</h4>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>Shop Date</th>
+                        <th>Total</th>
+                        <th>You Pay</th>
+                        <th>Pay To</th>
+                      </tr>
+                    </thead>
+                    <tbody>{this.renderPayments()}</tbody>
+                  </Table>
                   <br />
                   <br />
                   <h4>Who you owe</h4>
-                  <Table>
+                  <Table striped bordered hover>
                     <thead>
                       <tr>
                         <th className="paymentTable">Person</th>
@@ -202,7 +190,7 @@ class Account extends Component {
                     <tbody>{this.renderPaymentBoxO()}</tbody>
                   </Table>
                   <h4>Who owes you</h4>
-                  <Table>
+                  <Table striped bordered hover>
                     <thead>
                       <tr>
                         <th className="paymentTable">Person</th>
@@ -212,67 +200,11 @@ class Account extends Component {
                     <tbody>{this.renderPaymentBoxOs()}</tbody>
                   </Table>
                 </div>
-                <div className="col-lg-12">
-                  <GeneralButton
-                    type="primary"
-                    buttonName="Change Password"
-                    handleClick={() => {
-                      this.handleShow();
-                    }}
-                  />
-                </div>
               </div>
-            </GeneralTemplate>
+            </div>
           </div>
         </div>
-        <Modal
-          show={this.state.show}
-          onHide={() => {
-            this.handleClose();
-          }}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Change Password</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Label>{this.state.data.email}</Form.Label>
-
-              <Form.Group controlId="formBasicText">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder=""
-                  onChange={(e) => {
-                    this.setState({ password: e.target.value });
-                  }}
-                />
-              </Form.Group>
-              <Form.Group controlId="formBasicText">
-                <Form.Label>New Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder=""
-                  onChange={(e) => {
-                    this.setState({ newpass: e.target.value });
-                  }}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={() => {
-                this.onSubmit();
-              }}
-            >
-              Change Password
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+      
     );
   }
 }
@@ -286,7 +218,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   GetAllCostSplit,
-  changePass,
-  signout,
   getTotalBalance,
-})(Account);
+})(Dashboard);

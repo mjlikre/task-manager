@@ -496,7 +496,7 @@ class GroceryListEdit extends Component {
         if (this.state.authenticated){
             return (
                 <div class = "container">
-                    <Navbar navType = "grocery"/>
+                    {/* <Navbar navType = "grocery"/> */}
                     <div className = "row">
                         <div className = "kjga-display-block col-lg-12">
                             <GeneralTemplate name = "Split">

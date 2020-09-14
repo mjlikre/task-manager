@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import GeneralTalbe from "./../components/GeneralTable/GeneralTable";
 import GeneranButton from "./../components/Button/GeneralButton";
 import { Form, Button, Modal, Table } from "react-bootstrap";
-import { createNewGroceryList, getAllGroceryList, createCostSplit, test, getTotalBalance, getUserName } from "./../actions";
+import { createNewGroceryList, getAllGroceryList, createCostSplit, test} from "./../actions";
 import { Redirect } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import GeneralTemplate from "../components/GeneralTable/GeneralTemplate";
 class GroceryOverview extends Component {
   constructor(props) {
     super(props);
@@ -34,19 +33,15 @@ class GroceryOverview extends Component {
     }
     else{
       this.props.getAllGroceryList(() => {
-        this.props.getTotalBalance( ()=> {
-          this.props.getUserName(() => {
+
             this.setState(
               {
                 data: this.props.costSplits,
-                totalBalance: this.props.totalBalance,
                 grocery_list: this.props.grocery,
-                userName: this.props.username
               })
             })
             
-          })
-        })
+     
       }
   }
   renderPaymentBoxO() {
@@ -170,7 +165,7 @@ class GroceryOverview extends Component {
               {this.renderRedirect()}
               <div className = "row">
                     <div className = "kjga-display-block col-lg-12">
-              <Navbar navType="grocery" />
+              {/* <Navbar navType="grocery" /> */}
               <GeneralTalbe name="Grocery Overview" itemList = {this.state.grocery_list}>
                 <GeneranButton
                   buttonName="Add New List"
@@ -180,29 +175,6 @@ class GroceryOverview extends Component {
                   }}
                 />
               </GeneralTalbe>
-              <GeneralTemplate name = "Balance Sheet">
-                  <h4>Who you owe</h4>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th className="paymentTable">Person</th>
-                        <th className="paymentTable">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>{this.renderPaymentBoxO()}</tbody>
-                  </Table>
-                  <h4>Who owes you</h4>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <th className="paymentTable">Person</th>
-                        <th className="paymentTable">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>{this.renderPaymentBoxOs()}</tbody>
-                  </Table>
-
-              </GeneralTemplate>
       
               <Modal
                 show={this.state.show}
@@ -301,8 +273,6 @@ function mapStateToProps(state) {
     newGrocery: state.grocery.newGrocery,
     newGroceryError: state.grocery.newGroceryError,
     groceryError: state.grocery.allGroceryError,
-    totalBalance: state.grocery.totalBalance,
-    username: state.auth.username
   };
 }
 
@@ -311,6 +281,4 @@ export default connect(mapStateToProps, {
   getAllGroceryList,
   createCostSplit,
   test,
-  getTotalBalance,
-  getUserName
 })(GroceryOverview);

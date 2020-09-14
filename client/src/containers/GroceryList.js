@@ -84,7 +84,7 @@ class GroceryList extends Component {
         if (this.state.grocery_list.length !== 0) {
             return (
                 <div>
-                    <Navbar navType = "grocery"/>
+                    {/* <Navbar navType = "grocery"/> */}
                     <div className = "row">
                     <div className = "kjga-display-block col-lg-12">
                         <GeneralTemplate name = "Grocery Split">
