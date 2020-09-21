@@ -12,12 +12,12 @@ class GroceryOverview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      store_name: "",
+      name: false,
+      store_name: false,
       total: 0,
-      date: "",
+      date: false,
       show: false,
-      payto: "",
+      payto: false,
       redirect: false,
       id: "",
       grocery_list: false,
@@ -129,6 +129,7 @@ class GroceryOverview extends Component {
     this.setState({ show: true });
   };
   onSubmit(callback) {
+    
     const data = {
       shopper: this.state.name,
       store: this.state.store_name,
@@ -136,22 +137,48 @@ class GroceryOverview extends Component {
       date: this.state.date,
       payto: this.state.payto
     };
-    this.props.createNewGroceryList(data, () => {
-      this.setState({
-        id: this.props.newGrocery[0].id,
-      }, () => { 
-        this.props.createCostSplit(this.state.id)
+    if (this.checker()) {
+      alert(this.checker())
+    }else{
+      this.props.createNewGroceryList(data, () => {
+        this.setState({
+          id: this.props.newGrocery[0].id,
+        }, () => { 
+          this.props.createCostSplit(this.state.id)
+        });
+        
       });
-      
-    });
-    this.setState({
-      show: false,
-      redirect: true,
-    });
+      this.setState({
+        show: false,
+        redirect: true,
+      });
+    }
+    
+  }
+
+  checker () {
+    if (!this.state.name) {
+      return "Please enter name"
+    }
+    else if (!this.state.payto) {
+      return "Please select who paid"
+    }
+    else if (!this.state.total) {
+      return "Please enter amount"
+    }
+    else if (!this.state.date) {
+      return "Please select a date"
+    }
+    else if (!this.state.store_name) {
+      return "Please enter the store"
+    }
+    else {
+      return false
+    }
   }
   renderRedirect = () => {
     if (this.state.redirect && this.state.id) {
-      let url = "/gle?id=" + this.state.id + "&status=new&total=" + this.state.total;
+      let url = "/gle?id=" + this.state.id + "&date=" + this.state.date+"&total=" + this.state.total;
       return <Redirect to={url}/>;
     }
   };

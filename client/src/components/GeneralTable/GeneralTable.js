@@ -21,7 +21,7 @@ class GeneralTable extends Component {
       return (
         <div className = "button-wrapper">
           <div className = "button">
-            <a href={"/gl?id=" + item.id }>View</a>
+            <a href={"/gl?id=" + item.id + "&date=" + item.shop_date.replace(" ", "_").split(",")[0] }>View</a>
           </div>
         </div>
         
@@ -30,9 +30,9 @@ class GeneralTable extends Component {
     else if (item.edit === 1) {
       return (
         <div className = "button-wrapper">
-          <div className = "button"><a href={"/gl?id=" + item.id + "&total=" + item.total}>View</a></div>
+          <div className = "button"><a href={"/gl?id=" + item.id + "&total=" + item.total  + "&date=" + item.shop_date.replace(" ", "_").split(",")[0]}>View</a></div>
           
-          <div className = "button"><a href={"gle?id="+item.id + "&total=" + item.total}>Edit</a></div>
+          <div className = "button"><a href={"gle?id="+item.id + "&total=" + item.total  + "&date=" + item.shop_date.replace(" ", "_").split(",")[0]}>Edit</a></div>
         </div>
 
       )

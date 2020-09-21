@@ -38,8 +38,10 @@ class GroceryList extends Component {
             let params = new URLSearchParams(search);
             let id = params.get('id');
             let total = params.get("total")
+            let date = params.get("date").split("_")[0] + " " + params.get("date").split("_")[1]
             this.setState({
-                id: id
+                id: id,
+                date: date
             }, () => {
                 this.props.getSingleGroceryList(id, () => {                    
                     this.props.getCostSplit(id, ()=> {
@@ -131,6 +133,9 @@ class GroceryList extends Component {
                         </div>
                         <div>
                         Paid: {this.state.paid}
+                        </div>
+                        <div>
+                            date: {this.state.date}
                         </div>
                         <div>
                             <strong>If there's a green dot under your name, it means you're paying for it. Grey dot means you're not paying for it.</strong>

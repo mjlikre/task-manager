@@ -31,7 +31,8 @@ class GroceryListEdit extends Component {
             authenticated: false,
             amount: 0,
             paid: 0, 
-            largeInputList: ""
+            largeInputList: "",
+            date: ""
         };
         this.newItemHandle = this.newItemHandle.bind(this)
         this.largeInputHandle = this.largeInputHandle.bind(this)
@@ -46,9 +47,11 @@ class GroceryListEdit extends Component {
             let params = new URLSearchParams(search);
             let id = params.get('id');
             let status = params.get("status")
+            let date = params.get("date").split("_")[0] + " " + params.get("date").split("_")[1]
             this.setState({
                 id: id,
-                status: status
+                status: status,
+                date : date
             }, () => {
                 this.props.getSingleGroceryList(id, () => {                    
                     this.props.getCostSplit(id, ()=> {
@@ -555,6 +558,9 @@ class GroceryListEdit extends Component {
                                     </div>
                                     <div>
                                         Paid: {this.state.paid}
+                                    </div>
+                                    <div>
+                                        date: {this.state.date}
                                     </div>
                                 </div>
                                 
