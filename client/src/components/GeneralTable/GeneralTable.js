@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Card } from "react-bootstrap";
 import "./General.css";
 
 class GeneralTable extends Component {
@@ -45,13 +45,20 @@ class GeneralTable extends Component {
 
       return item_list.map((item, index) => {
         return (
-          <div className="col-md-4 kjga-main-list-item">
+          <div className="col-md-4 ">
             {/* <a href={"/gl?id=" + item.id + "&status=edit"}> */}
-              <div>Date: {item.shop_date}</div>
-                <div>Store: {item.store}</div>
-              <div>Shopper: {item.shopper}</div>
-              <div>Total: {item.total}</div>
-              {this.renderButton(item)}
+            <Card style={{ width: '18rem', height: "18rem"}}>
+              {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+              <Card.Body>
+                <Card.Title>{item.store} - {item.shop_date}</Card.Title>
+                <Card.Text>
+                  <div>Shopper: {item.shopper}</div>
+                  <div>Total: {item.total}</div>
+                </Card.Text>
+                {this.renderButton(item)}
+              </Card.Body>
+            </Card>
+              
             {/* </a> */}
             
           </div>

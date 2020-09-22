@@ -128,7 +128,7 @@ class GroceryOverview extends Component {
   handleShow = () => {
     this.setState({ show: true });
   };
-  onSubmit(callback) {
+  onSubmit(event) {
     
     const data = {
       shopper: this.state.name,
@@ -201,6 +201,7 @@ class GroceryOverview extends Component {
                     this.handleShow();
                   }}
                 />
+                
               </GeneralTalbe>
       
               <Modal
@@ -215,7 +216,7 @@ class GroceryOverview extends Component {
                 <Modal.Body>
                   <Form>
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Shopper</Form.Label>
+                      <Form.Label>Shopper*</Form.Label>
                       <Form.Control
                         type="grocery"
                         placeholder="Shopper's name"
@@ -226,7 +227,7 @@ class GroceryOverview extends Component {
                     </Form.Group>
       
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Store</Form.Label>
+                      <Form.Label>Store*</Form.Label>
                       <Form.Control
                         type="text"
                         placeholder="Store Name"
@@ -236,7 +237,7 @@ class GroceryOverview extends Component {
                       />
                     </Form.Group>
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Total</Form.Label>
+                      <Form.Label>Total*</Form.Label>
                       <Form.Control
                         type="number"
                         placeholder="Total $$"
@@ -247,7 +248,7 @@ class GroceryOverview extends Component {
                     </Form.Group>
       
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Date: </Form.Label>
+                      <Form.Label>Date: *</Form.Label>
                       <div>
                       <DatePicker
                         selected={this.state.startDate}
@@ -256,7 +257,7 @@ class GroceryOverview extends Component {
                       </div>
                     </Form.Group>
                     <Form.Group controlId="formBasicText">
-                      <Form.Label>Pay To</Form.Label>
+                      <Form.Label>Pay To*</Form.Label>
                       <div className = "dropdown-container">
                         
                         <div className = "name-box">{this.nameConversion(this.state.payto)}</div>
@@ -293,7 +294,7 @@ class GroceryOverview extends Component {
                   <Button
                     variant="primary"
                     type="submit"
-                    onClick={() => {
+                    onClick={(e) => {
                       this.onSubmit();
                     }}
                   >

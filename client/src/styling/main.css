@@ -65,3 +65,7 @@
     grid-template-columns: 120px 50px 50px 50px;
     grid-template-rows: auto;
 }
+
+.red {
+    background-color: red;
+}
