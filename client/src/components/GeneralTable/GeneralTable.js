@@ -46,9 +46,9 @@ class GeneralTable extends Component {
       return item_list.map((item, index) => {
         return (
           <div className="col-md-4 ">
-            {/* <a href={"/gl?id=" + item.id + "&status=edit"}> */}
-            <Card style={{ width: '18rem', height: "18rem"}}>
-              {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+            
+            <Card style={{ width: '18rem', height: "12rem"}}>
+              
               <Card.Body>
                 <Card.Title>{item.store} - {item.shop_date}</Card.Title>
                 <Card.Text>
